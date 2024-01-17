@@ -20,15 +20,16 @@ const interval = (60 * 1000) / requestsPerMinute;
 interface IMailerLiteData {
   email: string;
   fields: {
-    Quivo_Contact_ID: string;
-    Name: string;
-    Gender: string;
-    Personal_Title: string;
-    Date_of_Birth: string;
-    Quivo_Appointment_ID: string;
-    Company: string;
-    Company_ID: string;
-    Job_Title: String;
+    first_name: string;
+    last_name2: string;
+    gender: string;
+    personal_title: string;
+    date_of_birth: string;
+    quivo_appointment_id2: string;
+    quivo_contact_id: string;
+    company_id: string;
+    company_name: string;
+    proffesional_title: string;
   };
 }
 
@@ -61,15 +62,16 @@ serve(async (req) => {
       const payload: IMailerLiteData = {
         email: obj.email,
         fields: {
-          Quivo_Contact_ID: obj.contact_id,
-          Name: obj.first_name + " " + obj.last_name,
-          Gender: obj.gender,
-          Personal_Title: obj.personal_title,
-          Date_of_Birth: obj.date_of_birth,
-          Quivo_Appointment_ID: obj.appointment_id,
-          Company_ID: obj.company_id,
-          Company: obj.name,
-          Job_Title: obj.job_title,
+          first_name: obj.first_name,
+          last_name2: obj.last_name,
+          gender: obj.gender,
+          personal_title: obj.personal_title,
+          date_of_birth: obj.date_of_birth,
+          quivo_appointment_id2: obj.appointment_id,
+          quivo_contact_id: obj.contact_id,
+          company_id: obj.company_id,
+          company_name: obj.company_name,
+          proffesional_title: obj.job_title,
         },
       };
       sendRequest(payload);

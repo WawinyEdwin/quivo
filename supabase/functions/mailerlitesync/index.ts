@@ -30,6 +30,7 @@ interface IMailerLiteData {
     company_id: string;
     company_name: string;
     proffesional_title: string;
+    contact_status: string;
   };
 }
 
@@ -48,7 +49,6 @@ async function sendRequest(data: IMailerLiteData) {
 
 serve(async (req) => {
   const { data, error } = await supabase.rpc("get_appointment_details");
-
   if (error) {
     console.error("Supabase RPC error:", error);
     return new Response("Internal Server Error", { status: 500 });
@@ -72,6 +72,7 @@ serve(async (req) => {
           company_id: obj.company_id,
           company_name: obj.company_name,
           proffesional_title: obj.job_title,
+          contact_status: obj.contact_status,
         },
       };
       sendRequest(payload);

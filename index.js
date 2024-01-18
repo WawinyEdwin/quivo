@@ -16,7 +16,7 @@ const mailerlite_headers = {
 const requestsPerMinute = 120;
 const interval = (60 * 1000) / requestsPerMinute;
 
-const get_email_data = async () => {
+const getEmailData = async () => {
   const { data, error } = await supabase.rpc("get_appointment_details");
   if (error) {
     console.log("Supabase Error", error);
@@ -32,13 +32,12 @@ async function sendRequest(data) {
       headers: mailerlite_headers,
     });
     console.log(response.status);
-    console.log(response.json())
   } catch (error) {
     console.error("Fetch error:", error);
   }
 }
 
-const data = await get_email_data();
+const data = await getEmailData();
 
 // The mailerlite API upserts data so running this multiple times
 // does not invalidates the records.
@@ -60,6 +59,7 @@ async function syncToMailerLite() {
           company_id: obj.company_id,
           company_name: obj.company_name,
           proffesional_title: obj.job_title,
+          contact_status: obj.contact_status,
         },
       };
       sendRequest(payload);
@@ -71,5 +71,5 @@ async function syncToMailerLite() {
   return;
 }
 
-// Start the script with `node index.js`
+// Run the script with `node index.js`
 syncToMailerLite();

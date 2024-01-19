@@ -2,8 +2,8 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const supabase = createClient(
-  Deno.env.get("SUPABASE_URL"),
-  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")
+  Deno.env.get("SUPABASE_URL") as string,
+  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") as string
 );
 
 const mailerlite_url = Deno.env.get("MAILERLITE_API_URL");
@@ -36,7 +36,7 @@ interface IMailerLiteData {
 
 async function sendRequest(data: IMailerLiteData) {
   try {
-    const response = await fetch(mailerlite_url, {
+    const response = await fetch(mailerlite_url as string, {
       method: "POST",
       body: JSON.stringify(data),
       headers: mailerlite_headers,
@@ -47,7 +47,7 @@ async function sendRequest(data: IMailerLiteData) {
   }
 }
 
-serve(async (req) => {
+serve(async (_req) => {
   const { data, error } = await supabase.rpc("get_appointment_details");
   if (error) {
     console.error("Supabase RPC error:", error);

@@ -41,7 +41,7 @@ const data = await getEmailData();
 
 // The mailerlite API upserts data so running this multiple times
 // does not invalidates the records.
-async function syncToMailerLite() {
+function syncToMailerLite() {
   let index = 0;
   function processNextRecord() {
     if (index < data.length) {

@@ -11,7 +11,7 @@ interface ITicketData {
   //other data required (name, surname )
 }
 
-const generateTicket = async (
+const generate_ticket = async (
   ticketData: ITicketData
 ): Promise<Uint8Array | undefined> => {
   try {
@@ -36,7 +36,7 @@ const generateTicket = async (
 
 serve(async (req) => {
   const ticketData: ITicketData = await req.json();
-  const ticket = await generateTicket(ticketData);
+  const ticket = await generate_ticket(ticketData);
   if (ticket) {
     const base64Ticket = encodeBase64(ticket);
     if (ticketData.type === "base64") {
@@ -44,7 +44,8 @@ serve(async (req) => {
         headers: { "Content-Type": "application/json" },
         status: 200,
       });
-    } else if (ticketData.type === "download") {
+    }
+    if (ticketData.type === "download") {
       return new Response(ticket, {
         headers: {
           "Content-Type": "application/pdf",
@@ -52,14 +53,6 @@ serve(async (req) => {
         },
         status: 200,
       });
-    } else {
-      return new Response(
-        JSON.stringify({ message: "Error Generating Ticket" }),
-        {
-          headers: { "Content-Type": "application/json" },
-          status: 500,
-        }
-      );
     }
   }
   return new Response(JSON.stringify({ message: "Error Generating Ticket" }), {

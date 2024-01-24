@@ -20,7 +20,7 @@ serve(async (req) => {
     const comms: ICommunication = await req.json();
     const provider = "mailgun"; // we can set this as an env
     const response = await EmailService.sendEmail(provider, comms.email[0]);
-    return new Response(JSON.stringify({ ...response }), {
+    return new Response(JSON.stringify({ message: response.message }), {
       headers: {
         ...corsHeaders,
         "Content-Type": "application/json",

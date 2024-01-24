@@ -8,7 +8,7 @@ export class EmailService {
   // deno-lint-ignore no-explicit-any
   private static providers: Record<string, (email: IEmail) => Promise<any>> = {
     mailgun: EmailService.sendMailgunEmail,
-    // We can add as may providers as we want/
+    // We can add as may providers as we want
     // And plug in new ones effortlessly
   };
 

@@ -1,4 +1,4 @@
-import { IEmail } from "./types.ts";
+import { IEmail } from "./common.ts";
 import { encodeBase64 } from "https://deno.land/std@0.212.0/encoding/base64.ts";
 
 const DOMAIN = Deno.env.get("MAILGUN_DOMAIN") as string;

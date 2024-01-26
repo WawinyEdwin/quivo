@@ -2,7 +2,7 @@ The Edge function can be invoked by making a POST call to https://frdznxvduztcsi
 with a sample data 
 ```
 {
-    "type": "communication",
+    "type": "ticket",
     "email": [
         {
             "from": "<an_email_to_represent>",
@@ -17,4 +17,4 @@ with a sample data
 }
 ```
 
-Note: An JWT is required for this request. 
+Note: A JWT is required for this request. 

@@ -38,7 +38,7 @@ export async function get_appointment_by_id(
     .eq("id", appointment_id);
   if (error) {
     console.log("here");
-    console.log(error.details);
+    console.log(error);
     throw new Response(
       JSON.stringify({ message: "Error fetching appointment" }),
       BadRequestResponse

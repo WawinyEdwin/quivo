@@ -1,5 +1,5 @@
-import { IEmail } from "./common.ts";
 import { encodeBase64 } from "https://deno.land/std@0.212.0/encoding/base64.ts";
+import { IEmail } from "./types.ts";
 
 const DOMAIN = Deno.env.get("MAILGUN_DOMAIN") as string;
 const API_KEY = Deno.env.get("MAILGUN_API_KEY") as string;
@@ -36,7 +36,10 @@ export class EmailService {
     if (email.html) formData.append("html", email.html);
     if (email.attachments) {
       email.attachments.forEach((attachment) =>
-        formData.append("attachment", attachment)
+        formData.append(
+          "attachment",
+          new File([attachment.file], attachment.name)
+        )
       );
     }
 

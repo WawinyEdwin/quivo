@@ -1,11 +1,8 @@
-import { decodeJWT } from "./supabase.ts";
-import {
-  UnauthorizedResponse,
-  IRequestAuth,
-  BadRequestResponse,
-} from "./common.ts";
+import { BadRequestResponse, UnauthorizedResponse } from "./constants.ts";
+import { decode_jwt } from "./supabase/index.ts";
+import { IRequestAuth } from "./types.ts";
 
-export function authorizeRequest(requestAuth: IRequestAuth) {
+export function authorize_request(requestAuth: IRequestAuth) {
   const {
     req,
     communicationType,
@@ -23,14 +20,14 @@ export function authorizeRequest(requestAuth: IRequestAuth) {
     case "campaign":
       // Admin and the person's workspace is the workspace he is sending the e-mail from.
       if (authorization && senderEmail && targetWorkspace) {
-        return authorizeAdminUser(authorization, targetWorkspace);
+        return authorize_admin_user(authorization, targetWorkspace);
       }
       break;
 
     case "ticket":
       //  user can send an email only to himself , in case of being anonymous,
       if (authorization) {
-        const authorizedAnonymousUser = authorizeAnonymousUser(
+        const authorizedAnonymousUser = authorize_anonymous_user(
           authorization,
           recipientEmail
         );
@@ -39,7 +36,7 @@ export function authorizeRequest(requestAuth: IRequestAuth) {
         }
 
         if (targetWorkspace) {
-          const authorizedAdminUser = authorizeAdminUser(
+          const authorizedAdminUser = authorize_admin_user(
             authorization,
             targetWorkspace
           );
@@ -67,8 +64,11 @@ export function authorizeRequest(requestAuth: IRequestAuth) {
   );
 }
 
-export function authorizeAnonymousUser(token: string, recipientEmail: string) {
-  const decodedToken = decodeJWT(token);
+export function authorize_anonymous_user(
+  token: string,
+  recipientEmail: string
+) {
+  const decodedToken = decode_jwt(token);
   const { user, email } = decodedToken;
   if (user === "anonymous" && email === recipientEmail) {
     return decodedToken;
@@ -82,8 +82,8 @@ export function authorizeAnonymousUser(token: string, recipientEmail: string) {
   }
 }
 
-export function authorizeAdminUser(token: string, targetWorkspace: string) {
-  const decodedToken = decodeJWT(token);
+export function authorize_admin_user(token: string, targetWorkspace: string) {
+  const decodedToken = decode_jwt(token);
   const { role, workspace } = decodedToken;
   if (role === "admin" && workspace === targetWorkspace) {
     return decodedToken;

@@ -1,13 +1,9 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { authorize_request } from "../_shared/auth-service.ts";
+import { jsonHeaders } from "../_shared/constants.ts";
 import { corsHeaders } from "../_shared/cors.ts";
-import {
-  Communication,
-  IEmail,
-  jsonHeaders,
-  IRequestAuth,
-} from "../_shared/common.ts";
 import { EmailService } from "../_shared/email-service.ts";
-import { authorizeRequest } from "../_shared/auth-service.ts";
+import { Communication, IEmail, IRequestAuth } from "../_shared/types.ts";
 
 interface ICommunication {
   type: Communication; // Will be changed to a more explicit type
@@ -29,7 +25,7 @@ serve(async (req) => {
       recipientEmail: comms.email[0].to[0],
       targetWorkspace: comms.workspace,
     };
-    const _authorizedUser = authorizeRequest(requestAuth);
+    const _authorizedUser = authorize_request(requestAuth);
     const provider = "mailgun"; // we can set this as an env
     const response = await EmailService.sendEmail(provider, comms.email[0]);
     return new Response(JSON.stringify({ message: response.message }), {

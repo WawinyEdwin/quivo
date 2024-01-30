@@ -14,4 +14,4 @@ export const BadRequestResponse = {
 
 export const mailProvider = "mailgun";
 
-export const quivoAddress = "invites@quivo.it";
+export const quivoAddress = "invites@mail.quivo.it";

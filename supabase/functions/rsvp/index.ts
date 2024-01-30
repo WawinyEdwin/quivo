@@ -80,13 +80,11 @@ serve(async (req) => {
         job_title,
         appointment_uuid
       );
-      // create ticket
       const ticketId = await handle_ticket_creation(
         updatedAppointment,
         event_id,
         response
       );
-      // gen & send ticket
       await generate_and_send_ticket(updatedAppointment, ticketId);
       return new Response(
         JSON.stringify({ message: "RSVP successful, Event ticket sent" }),

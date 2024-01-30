@@ -1,7 +1,9 @@
 import { encodeBase64 } from "https://deno.land/std@0.212.0/encoding/base64.ts";
+import { corsHeaders } from "./cors.ts";
 import { IEmail } from "./types.ts";
 
 const DOMAIN = Deno.env.get("MAILGUN_DOMAIN") as string;
+const API_URL = Deno.env.get("MAILGUN_API_URL") as string;
 const API_KEY = Deno.env.get("MAILGUN_API_KEY") as string;
 
 export class EmailService {
@@ -22,7 +24,7 @@ export class EmailService {
   private static async sendMailgunEmail(
     email: IEmail
   ): Promise<{ id: string; message: string }> {
-    const MESSAGES_URL = `https://api.mailgun.net/v3/${DOMAIN}/messages`;
+    const MESSAGES_URL = `${API_URL}/v3/${DOMAIN}/messages`;
     const credentials = encodeBase64(`api:${API_KEY}`);
     const mailgun_headers = {
       Authorization: "Basic " + credentials,
@@ -52,7 +54,10 @@ export class EmailService {
       return await response.json();
     } catch (error) {
       console.error(error);
-      throw new Error("Error, sending communication!");
+      throw new Response("Error, sending communication!", {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 500,
+      });
     }
   }
 }

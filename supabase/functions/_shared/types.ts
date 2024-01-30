@@ -47,7 +47,7 @@ export type RsvpReponse = "accepted" | "refused";
 
 export type Ticket = Database["public"]["Tables"]["ticket"]["Row"];
 
-export type Apppointment = Database["public"]["Tables"]["appointments"]["Row"];
+export type Appointment = Database["public"]["Tables"]["appointments"]["Row"];
 
 export type EventAppointmentMeta =
   Database["public"]["Tables"]["event_appointment_meta"]["Row"];

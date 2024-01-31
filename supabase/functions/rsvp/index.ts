@@ -73,7 +73,6 @@ serve(async (req) => {
     if (!appointment) {
       return new Response(JSON.stringify({ message: "Invalid RSVP" }), {
         ...BadRequestResponse,
-        ...corsHeaders,
       });
     }
     if (response === "accepted") {
@@ -90,8 +89,10 @@ serve(async (req) => {
       return new Response(
         JSON.stringify({ message: "RSVP successful, Event ticket sent" }),
         {
-          ...corsHeaders,
-          ...jsonHeaders,
+          headers: {
+            ...corsHeaders,
+            ...jsonHeaders,
+          },
           status: 200,
         }
       );
@@ -101,8 +102,10 @@ serve(async (req) => {
       return new Response(
         JSON.stringify({ message: "RSVP response saved successfully" }),
         {
-          ...corsHeaders,
-          ...jsonHeaders,
+          headers: {
+            ...corsHeaders,
+            ...jsonHeaders,
+          },
           status: 200,
         }
       );

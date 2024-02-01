@@ -1,6 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import {
-  BadRequestResponse,
   jsonHeaders,
   mailProvider,
   quivoAddress,
@@ -10,7 +9,6 @@ import { EmailService } from "../_shared/email-service.ts";
 import {
   create_appointment_meta,
   create_ticket,
-  get_appointment_by_uuid,
   get_appointment_emails_by_appointment_id,
   get_ticket_by_appointment_id,
   update_appointment_by_uuid,
@@ -20,8 +18,7 @@ import { Appointment, IRsvp } from "../_shared/types.ts";
 
 async function handle_ticket_creation(
   updatedAppointment: Appointment,
-  event_id: number,
-  response: string
+  event_id: number
 ): Promise<string> {
   const oldTicket = await get_ticket_by_appointment_id(updatedAppointment.id);
   if (!oldTicket) {
@@ -29,7 +26,6 @@ async function handle_ticket_creation(
       appointment_id: updatedAppointment.id,
       event_id,
     });
-    await create_appointment_meta(response, event_id, updatedAppointment.id);
     return ticket.id;
   }
   return oldTicket.id;
@@ -60,34 +56,24 @@ async function generate_and_send_ticket(
   });
 }
 
-serve(async (req) => {
-  if (req.method === "OPTIONS") {
-    return new Response("ok", { headers: corsHeaders });
-  }
-
-  if (req.method === "POST") {
-    const rsvp: IRsvp = await req.json();
-    const { appointment_uuid, event_id, job_title, response } = rsvp;
-    const appointment = await get_appointment_by_uuid(appointment_uuid);
-    // for now we keep it lean only checker we have is a valid appointment_id
-    if (!appointment) {
-      return new Response(JSON.stringify({ message: "Invalid RSVP" }), {
-        ...BadRequestResponse,
-      });
-    }
+async function handle_rsvp(req: Request): Promise<Response> {
+  const rsvp: IRsvp = await req.json();
+  const { appointment_uuid, event_id, job_title, response } = rsvp;
+  try {
+    const updatedAppointment = await update_appointment_by_uuid(
+      job_title,
+      appointment_uuid
+    );
+    await create_appointment_meta(response, event_id, updatedAppointment.id);
     if (response === "accepted") {
-      const updatedAppointment = await update_appointment_by_uuid(
-        job_title,
-        appointment_uuid
-      );
       const ticketId = await handle_ticket_creation(
         updatedAppointment,
-        event_id,
-        response
+        event_id
       );
-      await generate_and_send_ticket(updatedAppointment, ticketId);
-      return new Response(
-        JSON.stringify({ message: "RSVP successful, Event ticket sent" }),
+      const successResponse = new Response(
+        JSON.stringify({
+          message: "RSVP ticket is being generated and will be sent shortly",
+        }),
         {
           headers: {
             ...corsHeaders,
@@ -96,9 +82,14 @@ serve(async (req) => {
           status: 200,
         }
       );
+
+      setTimeout(async () => {
+        await generate_and_send_ticket(updatedAppointment, ticketId);
+      }, 0);
+
+      return successResponse;
     }
     if (response === "refused") {
-      await create_appointment_meta(response, event_id, appointment.id);
       return new Response(
         JSON.stringify({ message: "RSVP response saved successfully" }),
         {
@@ -110,8 +101,36 @@ serve(async (req) => {
         }
       );
     }
+
+    return new Response(
+      JSON.stringify({ message: "Invalid Response Provided!" }),
+      {
+        headers: { ...corsHeaders, ...jsonHeaders },
+        status: 500,
+      }
+    );
+  } catch (error) {
+    console.log("Ticket", error);
+    return new Response(
+      JSON.stringify({ message: "Error Generating Ticket" }),
+      {
+        headers: { ...corsHeaders, ...jsonHeaders },
+        status: 500,
+      }
+    );
   }
-  return new Response(JSON.stringify({ message: "Error Generating Ticket" }), {
+}
+
+serve(async (req) => {
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { headers: corsHeaders });
+  }
+
+  if (req.method === "POST") {
+    return await handle_rsvp(req);
+  }
+
+  return new Response(JSON.stringify({ message: "Invalid Request" }), {
     headers: { ...corsHeaders, ...jsonHeaders },
     status: 500,
   });

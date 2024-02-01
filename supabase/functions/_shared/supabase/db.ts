@@ -48,7 +48,7 @@ export async function update_appointment_by_uuid(
     .eq("uuid", appointment_uuid)
     .select("*");
   if (error) {
-    console.log(error);
+    console.log("Update Appointment", error);
   }
   return data?.[0];
 }
@@ -63,7 +63,7 @@ export async function create_appointment_meta(
     .insert({ status, event_id, appointment_id })
     .select("*");
   if (error) {
-    console.log(error);
+    console.log("Create Appointment Meta", error);
   }
   return data?.[0];
 }

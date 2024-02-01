@@ -9,6 +9,7 @@ import { EmailService } from "../_shared/email-service.ts";
 import {
   create_appointment_meta,
   create_ticket,
+  get_appointment_by_uuid,
   get_appointment_emails_by_appointment_id,
   get_ticket_by_appointment_id,
   update_appointment_by_uuid,
@@ -21,6 +22,7 @@ async function handle_ticket_creation(
   event_id: number
 ): Promise<string> {
   const oldTicket = await get_ticket_by_appointment_id(updatedAppointment.id);
+
   if (!oldTicket) {
     const ticket = await create_ticket({
       appointment_id: updatedAppointment.id,
@@ -28,6 +30,7 @@ async function handle_ticket_creation(
     });
     return ticket.id;
   }
+  
   return oldTicket.id;
 }
 
@@ -39,9 +42,11 @@ async function generate_and_send_ticket(
     type: "base64",
     ticket_id: ticketId,
   });
+
   const appointment_emails = await get_appointment_emails_by_appointment_id(
     updatedAppointment.id
   );
+
   await EmailService.sendEmail(mailProvider, {
     from: quivoAddress,
     subject: `Ticket for Event`,
@@ -59,18 +64,21 @@ async function generate_and_send_ticket(
 async function handle_rsvp(req: Request): Promise<Response> {
   const rsvp: IRsvp = await req.json();
   const { appointment_uuid, event_id, job_title, response } = rsvp;
+
   try {
-    const updatedAppointment = await update_appointment_by_uuid(
-      job_title,
-      appointment_uuid
-    );
-    await create_appointment_meta(response, event_id, updatedAppointment.id);
+    if (job_title) {
+      await update_appointment_by_uuid(job_title, appointment_uuid);
+    }
+    
+    // Required for now
+    const appointment = await get_appointment_by_uuid(appointment_uuid);
+    await create_appointment_meta(response, event_id, appointment.id);
+
     if (response === "accepted") {
-      const ticketId = await handle_ticket_creation(
-        updatedAppointment,
-        event_id
-      );
-      const successResponse = new Response(
+      const ticketId = await handle_ticket_creation(appointment, event_id);
+      await generate_and_send_ticket(appointment, ticketId);
+
+      return new Response(
         JSON.stringify({
           message: "RSVP ticket is being generated and will be sent shortly",
         }),
@@ -82,13 +90,8 @@ async function handle_rsvp(req: Request): Promise<Response> {
           status: 200,
         }
       );
-
-      setTimeout(async () => {
-        await generate_and_send_ticket(updatedAppointment, ticketId);
-      }, 0);
-
-      return successResponse;
     }
+
     if (response === "refused") {
       return new Response(
         JSON.stringify({ message: "RSVP response saved successfully" }),
@@ -110,7 +113,8 @@ async function handle_rsvp(req: Request): Promise<Response> {
       }
     );
   } catch (error) {
-    console.log("Ticket", error);
+    console.log("Error on Ticket Gen:", error);
+
     return new Response(
       JSON.stringify({ message: "Error Generating Ticket" }),
       {

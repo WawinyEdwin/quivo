@@ -30,7 +30,7 @@ async function handle_ticket_creation(
     });
     return ticket.id;
   }
-  
+
   return oldTicket.id;
 }
 
@@ -47,7 +47,7 @@ async function generate_and_send_ticket(
     updatedAppointment.id
   );
 
-  await EmailService.sendEmail(mailProvider, {
+  EmailService.sendEmail(mailProvider, {
     from: quivoAddress,
     subject: `Ticket for Event`,
     to: [appointment_emails.email as string],
@@ -61,77 +61,46 @@ async function generate_and_send_ticket(
   });
 }
 
-async function handle_rsvp(req: Request): Promise<Response> {
+async function handle_rsvp(req: Request): Promise<void> {
   const rsvp: IRsvp = await req.json();
   const { appointment_uuid, event_id, job_title, response } = rsvp;
 
   try {
     if (job_title) {
-      await update_appointment_by_uuid(job_title, appointment_uuid);
+      update_appointment_by_uuid(job_title, appointment_uuid);
     }
-    
     // Required for now
     const appointment = await get_appointment_by_uuid(appointment_uuid);
-    await create_appointment_meta(response, event_id, appointment.id);
+    create_appointment_meta(response, event_id, appointment.id);
 
     if (response === "accepted") {
       const ticketId = await handle_ticket_creation(appointment, event_id);
-      await generate_and_send_ticket(appointment, ticketId);
-
-      return new Response(
-        JSON.stringify({
-          message: "RSVP ticket is being generated and will be sent shortly",
-        }),
-        {
-          headers: {
-            ...corsHeaders,
-            ...jsonHeaders,
-          },
-          status: 200,
-        }
-      );
+      generate_and_send_ticket(appointment, ticketId);
     }
-
-    if (response === "refused") {
-      return new Response(
-        JSON.stringify({ message: "RSVP response saved successfully" }),
-        {
-          headers: {
-            ...corsHeaders,
-            ...jsonHeaders,
-          },
-          status: 200,
-        }
-      );
-    }
-
-    return new Response(
-      JSON.stringify({ message: "Invalid Response Provided!" }),
-      {
-        headers: { ...corsHeaders, ...jsonHeaders },
-        status: 500,
-      }
-    );
   } catch (error) {
     console.log("Error on Ticket Gen:", error);
-
-    return new Response(
-      JSON.stringify({ message: "Error Generating Ticket" }),
-      {
-        headers: { ...corsHeaders, ...jsonHeaders },
-        status: 500,
-      }
-    );
   }
 }
 
-serve(async (req) => {
+serve((req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
 
   if (req.method === "POST") {
-    return await handle_rsvp(req);
+    handle_rsvp(req);
+    return new Response(
+      JSON.stringify({
+        message: "RSVP ticket is being generated and will be sent shortly",
+      }),
+      {
+        headers: {
+          ...corsHeaders,
+          ...jsonHeaders,
+        },
+        status: 200,
+      }
+    );
   }
 
   return new Response(JSON.stringify({ message: "Invalid Request" }), {

@@ -269,6 +269,7 @@ BEGIN FOR rec IN (
     CASE
       table_name
       WHEN 'personal_titles' THEN 10
+      WHEN 'contact_statuses' THEN 13
       WHEN 'contacts' THEN 20
       WHEN 'company_types' THEN 30
       WHEN 'companies' THEN 40
@@ -536,31 +537,40 @@ VALUES
       'appointments',
       (rec.import_row ->> 'IMPORT_appointment_id') :: DECIMAL
     ),
-  ) --- associative_status
-  ELSIF (rec.table_name = 'associative_status') THEN
+  ) 
+  
+--- associative_status record
+ELSIF (rec.table_name = 'associative_status') THEN
 INSERT INTO
   associative_status (name, workspace_id,)
 VALUES
   (
     rec.import_row ->> 'name',
     rec.import_row ->> 'workspace_id',
-  ) --- company section records
-  ELSIF (rec.table_name = 'company_sections') THEN
+  )
+  
+--- company sections record
+ELSIF (rec.table_name = 'company_sections') THEN
 INSERT INTO
   company_sections (name, workspace_id,)
 VALUES
   (
     rec.import_row ->> 'name',
     rec.import_row ->> 'workspace_id',
-  ) --- contact_statuses table
-  ELSIF (rec.table_name = 'contact_statuses') THEN
+  ) 
+
+--- contact_statuses table
+ELSIF (rec.table_name = 'contact_statuses') THEN
 INSERT INTO
   contact_statuses (name, workspace_id)
 VALUES
   (
     rec.import_row ->> 'name',
     rec.import_row ->> 'workspace_id'
-  ) -- 🤷‍♂️ Raise a warning if the record's table_name is undefined in this script.
+  ) 
+  
+  
+-- 🤷‍♂️ Raise a warning if the record's table_name is undefined in this script.
   ELSE RAISE WARNING 'Undefined handler for table_name: "%"',
   rec.table_name;
 

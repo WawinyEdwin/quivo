@@ -3,3 +3,7 @@ quivo.txt
 .env
 
 /node_modules
+
+/data/venv
+
+/data/.env

@@ -202,7 +202,7 @@ VALUES
     rec.import_row ->> 'gender',
     rec.import_row ->> 'external_code',
     rec.import_row ->> 'source',
-  ) ON CONFLICT (workspace_id, personal_email) DO NOTHING RETURNING id INTO updated_fk_id;
+  ) ON CONFLICT (workspace_id, external_code) DO NOTHING RETURNING id INTO updated_fk_id;
 
 -- 🧾 company_types record
 ELSIF (rec.table_name = 'company_types') THEN
@@ -270,7 +270,7 @@ VALUES
         rec.import_row ->> 'IMPORT_company_section_id'
       ) :: DECIMAL
     ),
-  ) ON CONFLICT (workspace_id, name, address) DO NOTHING RETURNING id INTO updated_fk_id;
+  ) ON CONFLICT (workspace_id, name, address, external_code) DO NOTHING RETURNING id INTO updated_fk_id;
 
 -- 🏢 job_title_categories record
 ELSIF (rec.table_name = 'job_title_categories') THEN
@@ -335,7 +335,8 @@ VALUES
     company_id,
     cind_id,
     appointment_category_id,
-    job_title_category_id
+    job_title_category_id,
+    external_code
   ) DO NOTHING RETURNING id INTO updated_fk_id;
 
 --- 🏛️ associations record

@@ -1,3 +1,12 @@
+-- support upserts
+ALTER TABLE contacts
+ADD CONSTRAINT unique_workspace_external_code
+UNIQUE (workspace_id, external_code);
+
+ALTER TABLE companies
+ADD CONSTRAINT unique_workspace_company_external_code
+UNIQUE (workspace_id, name, address, external_code);
+
 -- Given FK from spreadsheet, find the imported record's actual FK in the DB
 CREATE
 OR REPLACE FUNCTION import.get_imported_record_fk(search_table_name TEXT, search_id DECIMAL) RETURNS BIGINT AS $ $

@@ -24,7 +24,7 @@ $$ LANGUAGE SQL;
 
 -- 💣 Delete all data from specified workspace
 CREATE
-OR REPLACE FUNCTION import.reset_workspace(search_workspace_id BIGINT) RETURNS VOID AS $ $ DECLARE BEGIN
+OR REPLACE FUNCTION import.reset_workspace(search_workspace_id BIGINT) RETURNS VOID AS $$ DECLARE BEGIN
 delete from
   associations
 where
@@ -107,7 +107,7 @@ delete from
 where
   workspace_id = search_workspace_id;
 
-END $ $ LANGUAGE PLPGSQL VOLATILE;
+END $$ LANGUAGE PLPGSQL VOLATILE;
 
 -- ↔️ Convert each spreadsheet row to a database record in the appropriate table
 CREATE

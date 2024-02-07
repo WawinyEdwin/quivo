@@ -9,7 +9,7 @@ UNIQUE (workspace_id, name, address, external_code);
 
 -- Given FK from spreadsheet, find the imported record's actual FK in the DB
 CREATE
-OR REPLACE FUNCTION import.get_imported_record_fk(search_table_name TEXT, search_id DECIMAL) RETURNS BIGINT AS $ $
+OR REPLACE FUNCTION import.get_imported_record_fk(search_table_name TEXT, search_id DECIMAL) RETURNS BIGINT AS $$
 SELECT
   fk_id
 FROM
@@ -20,7 +20,7 @@ WHERE
 LIMIT
   1;
 
-$ $ LANGUAGE SQL;
+$$ LANGUAGE SQL;
 
 -- 💣 Delete all data from specified workspace
 CREATE
@@ -111,7 +111,7 @@ END $ $ LANGUAGE PLPGSQL VOLATILE;
 
 -- ↔️ Convert each spreadsheet row to a database record in the appropriate table
 CREATE
-OR REPLACE FUNCTION import.run_import(associated_workspace_id BIGINT) RETURNS VOID AS $ $ DECLARE rec RECORD;
+OR REPLACE FUNCTION import.run_import(associated_workspace_id BIGINT) RETURNS VOID AS $$ DECLARE rec RECORD;
 
 updated_fk_id BIGINT;
 
@@ -445,4 +445,4 @@ rec.id,
 jsonb_pretty(rec.import_row) :: TEXT,
 SQLERRM;
 
-END $ $ LANGUAGE PLPGSQL VOLATILE;
+END $$ LANGUAGE PLPGSQL VOLATILE;

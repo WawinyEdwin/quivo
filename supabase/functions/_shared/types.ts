@@ -39,7 +39,8 @@ export interface ITicketData {
 export interface IRsvp {
   appointment_uuid: string;
   response: RsvpReponse;
-  job_title: string;
+  job_title?: string;
+  date_of_birth: string;
   event_id: number;
 }
 
@@ -54,3 +55,5 @@ export type EventAppointmentMeta =
 
 export type ApppointmentEmail =
   Database["public"]["Tables"]["appointment_emails"]["Row"];
+
+export type Contact = Database["public"]["Tables"]["contacts"]["Row"];

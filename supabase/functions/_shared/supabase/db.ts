@@ -1,10 +1,26 @@
 import {
   Appointment,
   ApppointmentEmail,
+  Contact,
   EventAppointmentMeta,
   Ticket,
 } from "../types.ts";
 import { supabaseAdmin } from "./index.ts";
+
+export async function update_contacts(
+  contact: Partial<Contact>,
+  contact_id: number
+): Promise<Contact> {
+  const { data, error } = await supabaseAdmin
+    .from("contacts")
+    .update({ date_of_birth: contact.date_of_birth })
+    .eq("id", contact_id)
+    .select("*");
+  if (error) {
+    console.log(error);
+  }
+  return data?.[0];
+}
 
 export async function create_ticket(ticket: {
   event_id: number;

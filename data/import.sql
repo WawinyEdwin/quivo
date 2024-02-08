@@ -7,6 +7,8 @@ ALTER TABLE companies
 ADD CONSTRAINT unique_workspace_company_external_code
 UNIQUE (workspace_id, name, address, external_code);
 
+ADD COLUMN source 
+
 -- Given FK from spreadsheet, find the imported record's actual FK in the DB
 CREATE
 OR REPLACE FUNCTION import.get_imported_record_fk(search_table_name TEXT, search_id DECIMAL) RETURNS BIGINT AS $$
@@ -389,13 +391,13 @@ INSERT INTO
   )
 VALUES
   (
-    rec.import_row ->> 'phone',
+    rec.import_row ->> 'phone'::TEXT,
     rec.import_row ->> 'type',
-    rec.import_row ->> 'workspace_id',
+    rec.import_row ->> 'workspace_id'::,
     import.get_imported_record_fk(
       'appointments',
       (rec.import_row ->> 'IMPORT_appointment_id') :: DECIMAL
-    ),
+    )
   ) --- associative_status record
   ELSIF (rec.table_name = 'associative_status') THEN
 INSERT INTO
@@ -404,7 +406,7 @@ VALUES
   (
     rec.import_row ->> 'name',
     rec.import_row ->> 'workspace_id',
-  ) --- company sections record
+  ); --- company sections record
   ELSIF (rec.table_name = 'company_sections') THEN
 INSERT INTO
   company_sections (name, workspace_id,)
@@ -412,7 +414,7 @@ VALUES
   (
     rec.import_row ->> 'name',
     rec.import_row ->> 'workspace_id',
-  ) --- contact_statuses table
+  ); --- contact_statuses table
   ELSIF (rec.table_name = 'contact_statuses') THEN
 INSERT INTO
   contact_statuses (name, workspace_id)
@@ -420,7 +422,7 @@ VALUES
   (
     rec.import_row ->> 'name',
     rec.import_row ->> 'workspace_id'
-  ) -- 🤷‍♂️ Raise a warning if the record's table_name is undefined in this script.
+  ); -- 🤷‍♂️ Raise a warning if the record's table_name is undefined in this script.
   ELSE RAISE WARNING 'Undefined handler for table_name: "%"',
   rec.table_name;
 

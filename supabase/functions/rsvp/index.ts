@@ -13,6 +13,7 @@ import {
   get_appointment_emails_by_appointment_id,
   get_ticket_by_appointment_id,
   update_appointment_by_uuid,
+  update_contacts,
 } from "../_shared/supabase/db.ts";
 import { generate_ticket } from "../_shared/ticket.ts";
 import { Appointment, IRsvp } from "../_shared/types.ts";
@@ -69,8 +70,14 @@ async function handle_rsvp(req: Request): Promise<void> {
     if (job_title) {
       update_appointment_by_uuid(job_title, appointment_uuid);
     }
-    // Required for now
+
     const appointment = await get_appointment_by_uuid(appointment_uuid);
+    
+    update_contacts(
+      { date_of_birth: rsvp.date_of_birth },
+      appointment.contact_id as number
+    );
+
     create_appointment_meta(response, event_id, appointment.id);
 
     if (response === "accepted") {

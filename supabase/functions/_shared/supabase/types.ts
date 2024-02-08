@@ -6,7 +6,7 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
       appointment_categories: {
@@ -57,18 +57,21 @@ export interface Database {
           email: string | null;
           id: number;
           is_preferred: boolean;
+          workspace_id: number | null;
         };
         Insert: {
           appointment_id: number;
           email?: string | null;
           id?: number;
           is_preferred?: boolean;
+          workspace_id?: number | null;
         };
         Update: {
           appointment_id?: number;
           email?: string | null;
           id?: number;
           is_preferred?: boolean;
+          workspace_id?: number | null;
         };
         Relationships: [
           {
@@ -76,6 +79,20 @@ export interface Database {
             columns: ["appointment_id"];
             isOneToOne: false;
             referencedRelation: "appointments";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "appointment_emails_workspace_id_fkey";
+            columns: ["workspace_id"];
+            isOneToOne: false;
+            referencedRelation: "workspace_members_view";
+            referencedColumns: ["workspace_id"];
+          },
+          {
+            foreignKeyName: "appointment_emails_workspace_id_fkey";
+            columns: ["workspace_id"];
+            isOneToOne: false;
+            referencedRelation: "workspaces";
             referencedColumns: ["id"];
           }
         ];
@@ -134,6 +151,55 @@ export interface Database {
           }
         ];
       };
+      appointment_phones: {
+        Row: {
+          appointment_id: number | null;
+          created_at: string;
+          id: number;
+          phone: string | null;
+          type: string | null;
+          workspace_id: number | null;
+        };
+        Insert: {
+          appointment_id?: number | null;
+          created_at?: string;
+          id?: number;
+          phone?: string | null;
+          type?: string | null;
+          workspace_id?: number | null;
+        };
+        Update: {
+          appointment_id?: number | null;
+          created_at?: string;
+          id?: number;
+          phone?: string | null;
+          type?: string | null;
+          workspace_id?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "appointment_phones_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "appointments";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "appointment_phones_workspace_id_fkey";
+            columns: ["workspace_id"];
+            isOneToOne: false;
+            referencedRelation: "workspace_members_view";
+            referencedColumns: ["workspace_id"];
+          },
+          {
+            foreignKeyName: "appointment_phones_workspace_id_fkey";
+            columns: ["workspace_id"];
+            isOneToOne: false;
+            referencedRelation: "workspaces";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
       appointments: {
         Row: {
           appointment_category_id: number | null;
@@ -141,10 +207,12 @@ export interface Database {
           company_id: number | null;
           contact_id: number | null;
           created_at: string;
+          external_code: string | null;
           id: number;
           job_office: string | null;
           job_title: string | null;
           job_title_category_id: number | null;
+          source: string | null;
           uuid: string;
           workspace_id: number | null;
         };
@@ -154,10 +222,12 @@ export interface Database {
           company_id?: number | null;
           contact_id?: number | null;
           created_at?: string;
+          external_code?: string | null;
           id?: number;
           job_office?: string | null;
           job_title?: string | null;
           job_title_category_id?: number | null;
+          source?: string | null;
           uuid?: string;
           workspace_id?: number | null;
         };
@@ -167,10 +237,12 @@ export interface Database {
           company_id?: number | null;
           contact_id?: number | null;
           created_at?: string;
+          external_code?: string | null;
           id?: number;
           job_office?: string | null;
           job_title?: string | null;
           job_title_category_id?: number | null;
+          source?: string | null;
           uuid?: string;
           workspace_id?: number | null;
         };
@@ -283,6 +355,42 @@ export interface Database {
           }
         ];
       };
+      associative_status: {
+        Row: {
+          created_at: string;
+          id: number;
+          name: string | null;
+          workspace_id: number | null;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          name?: string | null;
+          workspace_id?: number | null;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          name?: string | null;
+          workspace_id?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "associative_status_workspace_id_fkey";
+            columns: ["workspace_id"];
+            isOneToOne: false;
+            referencedRelation: "workspace_members_view";
+            referencedColumns: ["workspace_id"];
+          },
+          {
+            foreignKeyName: "associative_status_workspace_id_fkey";
+            columns: ["workspace_id"];
+            isOneToOne: false;
+            referencedRelation: "workspaces";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
       cinds: {
         Row: {
           code: string | null;
@@ -325,14 +433,20 @@ export interface Database {
       companies: {
         Row: {
           address: string | null;
+          associative_status_id: number | null;
           city: string | null;
+          company_section_id: number | null;
           company_type_id: number | null;
           country: string | null;
           created_at: string;
+          email: string | null;
+          external_code: string | null;
           id: number;
           name: string | null;
+          pec: string | null;
           postal_code: string | null;
           region: string | null;
+          source: string | null;
           state: string | null;
           tax_code: string | null;
           vat_number: string | null;
@@ -340,14 +454,20 @@ export interface Database {
         };
         Insert: {
           address?: string | null;
+          associative_status_id?: number | null;
           city?: string | null;
+          company_section_id?: number | null;
           company_type_id?: number | null;
           country?: string | null;
           created_at?: string;
+          email?: string | null;
+          external_code?: string | null;
           id?: number;
           name?: string | null;
+          pec?: string | null;
           postal_code?: string | null;
           region?: string | null;
+          source?: string | null;
           state?: string | null;
           tax_code?: string | null;
           vat_number?: string | null;
@@ -355,20 +475,40 @@ export interface Database {
         };
         Update: {
           address?: string | null;
+          associative_status_id?: number | null;
           city?: string | null;
+          company_section_id?: number | null;
           company_type_id?: number | null;
           country?: string | null;
           created_at?: string;
+          email?: string | null;
+          external_code?: string | null;
           id?: number;
           name?: string | null;
+          pec?: string | null;
           postal_code?: string | null;
           region?: string | null;
+          source?: string | null;
           state?: string | null;
           tax_code?: string | null;
           vat_number?: string | null;
           workspace_id?: number | null;
         };
         Relationships: [
+          {
+            foreignKeyName: "companies_associative_status_id_fkey";
+            columns: ["associative_status_id"];
+            isOneToOne: false;
+            referencedRelation: "associative_status";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "companies_company_section_id_fkey";
+            columns: ["company_section_id"];
+            isOneToOne: false;
+            referencedRelation: "company_sections";
+            referencedColumns: ["id"];
+          },
           {
             foreignKeyName: "companies_company_type_id_fkey";
             columns: ["company_type_id"];
@@ -392,7 +532,7 @@ export interface Database {
           }
         ];
       };
-      company_types: {
+      company_sections: {
         Row: {
           created_at: string;
           id: number;
@@ -407,6 +547,48 @@ export interface Database {
         };
         Update: {
           created_at?: string;
+          id?: number;
+          name?: string | null;
+          workspace_id?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "company_sections_workspace_id_fkey";
+            columns: ["workspace_id"];
+            isOneToOne: false;
+            referencedRelation: "workspace_members_view";
+            referencedColumns: ["workspace_id"];
+          },
+          {
+            foreignKeyName: "company_sections_workspace_id_fkey";
+            columns: ["workspace_id"];
+            isOneToOne: false;
+            referencedRelation: "workspaces";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      company_types: {
+        Row: {
+          created_at: string;
+          description: string | null;
+          examples: string | null;
+          id: number;
+          name: string | null;
+          workspace_id: number | null;
+        };
+        Insert: {
+          created_at?: string;
+          description?: string | null;
+          examples?: string | null;
+          id?: number;
+          name?: string | null;
+          workspace_id?: number | null;
+        };
+        Update: {
+          created_at?: string;
+          description?: string | null;
+          examples?: string | null;
           id?: number;
           name?: string | null;
           workspace_id?: number | null;
@@ -451,12 +633,10 @@ export interface Database {
       };
       contacts: {
         Row: {
-          contact_status:
-            | Database["public"]["Enums"]["contact_status_type"]
-            | null;
           contact_status_id: number | null;
           created_at: string;
           date_of_birth: string | null;
+          external_code: string | null;
           first_name: string | null;
           gender: string | null;
           id: number;
@@ -464,15 +644,14 @@ export interface Database {
           personal_email: string | null;
           personal_title: string | null;
           personal_title_id: number | null;
+          source: string | null;
           workspace_id: number | null;
         };
         Insert: {
-          contact_status?:
-            | Database["public"]["Enums"]["contact_status_type"]
-            | null;
           contact_status_id?: number | null;
           created_at?: string;
           date_of_birth?: string | null;
+          external_code?: string | null;
           first_name?: string | null;
           gender?: string | null;
           id?: number;
@@ -480,15 +659,14 @@ export interface Database {
           personal_email?: string | null;
           personal_title?: string | null;
           personal_title_id?: number | null;
+          source?: string | null;
           workspace_id?: number | null;
         };
         Update: {
-          contact_status?:
-            | Database["public"]["Enums"]["contact_status_type"]
-            | null;
           contact_status_id?: number | null;
           created_at?: string;
           date_of_birth?: string | null;
+          external_code?: string | null;
           first_name?: string | null;
           gender?: string | null;
           id?: number;
@@ -496,6 +674,7 @@ export interface Database {
           personal_email?: string | null;
           personal_title?: string | null;
           personal_title_id?: number | null;
+          source?: string | null;
           workspace_id?: number | null;
         };
         Relationships: [
@@ -588,23 +767,29 @@ export interface Database {
       event_appointment_meta: {
         Row: {
           appointment_id: number | null;
-          created_at: string;
+          conferma: string | null;
           event_id: number | null;
           id: number;
+          last_change: string;
+          note: string | null;
           status: string | null;
         };
         Insert: {
           appointment_id?: number | null;
-          created_at?: string;
+          conferma?: string | null;
           event_id?: number | null;
           id?: number;
+          last_change?: string;
+          note?: string | null;
           status?: string | null;
         };
         Update: {
           appointment_id?: number | null;
-          created_at?: string;
+          conferma?: string | null;
           event_id?: number | null;
           id?: number;
+          last_change?: string;
+          note?: string | null;
           status?: string | null;
         };
         Relationships: [
@@ -678,18 +863,21 @@ export interface Database {
       job_title_categories: {
         Row: {
           created_at: string;
+          description: string | null;
           id: number;
           name: string | null;
           workspace_id: number | null;
         };
         Insert: {
           created_at?: string;
+          description?: string | null;
           id?: number;
           name?: string | null;
           workspace_id?: number | null;
         };
         Update: {
           created_at?: string;
+          description?: string | null;
           id?: number;
           name?: string | null;
           workspace_id?: number | null;
@@ -731,6 +919,44 @@ export interface Database {
           notes?: string | null;
         };
         Relationships: [];
+      };
+      logs: {
+        Row: {
+          action_type: string | null;
+          changed_at: string | null;
+          id: number;
+          metadata: Json | null;
+          record_id: number | null;
+          table_name: string | null;
+          triggered_by: string | null;
+        };
+        Insert: {
+          action_type?: string | null;
+          changed_at?: string | null;
+          id?: number;
+          metadata?: Json | null;
+          record_id?: number | null;
+          table_name?: string | null;
+          triggered_by?: string | null;
+        };
+        Update: {
+          action_type?: string | null;
+          changed_at?: string | null;
+          id?: number;
+          metadata?: Json | null;
+          record_id?: number | null;
+          table_name?: string | null;
+          triggered_by?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "logs_triggered_by_fkey";
+            columns: ["triggered_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       personal_titles: {
         Row: {
@@ -801,23 +1027,70 @@ export interface Database {
         };
         Relationships: [];
       };
+      seat: {
+        Row: {
+          appointment_id: number | null;
+          created_at: string;
+          description: string | null;
+          id: number;
+          row: string | null;
+          seat: string | null;
+          sector: string | null;
+        };
+        Insert: {
+          appointment_id?: number | null;
+          created_at?: string;
+          description?: string | null;
+          id?: number;
+          row?: string | null;
+          seat?: string | null;
+          sector?: string | null;
+        };
+        Update: {
+          appointment_id?: number | null;
+          created_at?: string;
+          description?: string | null;
+          id?: number;
+          row?: string | null;
+          seat?: string | null;
+          sector?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "seat_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "appointments";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
       ticket: {
         Row: {
           appointment_id: number | null;
+          created_at: string | null;
+          entry: string | null;
           event_id: number | null;
           id: string;
+          seat_id: number | null;
           status: string | null;
         };
         Insert: {
           appointment_id?: number | null;
+          created_at?: string | null;
+          entry?: string | null;
           event_id?: number | null;
           id?: string;
+          seat_id?: number | null;
           status?: string | null;
         };
         Update: {
           appointment_id?: number | null;
+          created_at?: string | null;
+          entry?: string | null;
           event_id?: number | null;
           id?: string;
+          seat_id?: number | null;
           status?: string | null;
         };
         Relationships: [
@@ -826,6 +1099,13 @@ export interface Database {
             columns: ["appointment_id"];
             isOneToOne: false;
             referencedRelation: "appointments";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "ticket_seat_id_fkey";
+            columns: ["seat_id"];
+            isOneToOne: false;
+            referencedRelation: "seat";
             referencedColumns: ["id"];
           }
         ];
@@ -1184,6 +1464,10 @@ export interface Database {
           company_name: string;
         }[];
       };
+      get_current_user_id: {
+        Args: Record<PropertyKey, never>;
+        Returns: string;
+      };
       get_jsonb_param_value: {
         Args: {
           args: Json;
@@ -1191,6 +1475,13 @@ export interface Database {
           default_value?: string;
         };
         Returns: string;
+      };
+      insert_appointments_list: {
+        Args: {
+          appointment_ids: number[];
+          list_ids: number[];
+        };
+        Returns: undefined;
       };
       is_current_user_super_user: {
         Args: Record<PropertyKey, never>;
@@ -1209,7 +1500,8 @@ export interface Database {
         Returns: {
           first_name: string;
           last_name: string;
-          name: string;
+          company_name: string;
+          has_ticket: boolean;
         }[];
       };
       search_cog: {
@@ -1316,7 +1608,7 @@ export interface Database {
       };
     };
   };
-}
+};
 
 export type Tables<
   PublicTableNameOrOptions extends

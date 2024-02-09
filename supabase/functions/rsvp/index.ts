@@ -17,6 +17,7 @@ import {
 } from "../_shared/supabase/db.ts";
 import { generate_ticket } from "../_shared/ticket.ts";
 import { Appointment, IRsvp } from "../_shared/types.ts";
+import { ticketTemplate } from "../_shared/constants.ts";
 
 async function handle_ticket_creation(
   updatedAppointment: Appointment,
@@ -50,9 +51,9 @@ async function generate_and_send_ticket(
 
   EmailService.sendEmail(mailProvider, {
     from: quivoAddress,
-    subject: `Ticket for Event`,
+    subject: `Ticket for Event`, // to be changed
     to: [appointment_emails.email as string],
-    text: "Here is your ticket for the event",
+    html: ticketTemplate,
     attachments: [
       {
         name: `${ticketId}.pdf`,

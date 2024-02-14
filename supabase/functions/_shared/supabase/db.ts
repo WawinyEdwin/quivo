@@ -84,17 +84,17 @@ export async function create_appointment_meta(
   return data?.[0] as unknown as IEventAppointmentMeta;
 }
 
-export async function get_appointment_emails_by_appointment_id(
-  appointment_id: number
-): Promise<AppointmentEmail[]> {
+export async function get_appointment_email_by_appointment_email_uuid(
+  appointment_email_uuid: string
+): Promise<AppointmentEmail> {
   const { data, error } = await supabaseAdmin
     .from("appointment_emails")
     .select("*")
-    .eq("appointment_id", appointment_id);
+    .eq("uuid", appointment_email_uuid);
   if (error) {
     console.log(error);
   }
-  return data as unknown as AppointmentEmail[];
+  return data?.[0] as unknown as AppointmentEmail;
 }
 
 export async function get_ticket_by_appointment_id(

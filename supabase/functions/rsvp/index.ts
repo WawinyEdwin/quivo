@@ -11,13 +11,13 @@ import {
   create_appointment_meta,
   create_ticket,
   find_appointment_by_appointment_email_uuid,
-  get_appointment_emails_by_appointment_id,
+  get_appointment_email_by_appointment_email_uuid,
   get_ticket_by_appointment_id,
   update_appointment_by_uuid,
   update_contacts,
 } from "../_shared/supabase/db.ts";
 import { generate_ticket } from "../_shared/ticket.ts";
-import { IEventAppointmentMeta, IRsvp } from "../_shared/types.ts";
+import { IRsvp } from "../_shared/types.ts";
 
 async function handle_ticket_creation(
   appointmentId: number,
@@ -62,26 +62,23 @@ async function handle_rsvp(req: Request): Promise<void> {
       );
     }
 
-    const emails = await get_appointment_emails_by_appointment_id(
-      appointment.id
+    const emails = await get_appointment_email_by_appointment_email_uuid(
+      rsvp.invite
     );
+    console.log(emails);
+    
 
     if (!emails) {
       throw new Error("No Appointment emails found");
     }
 
-    const recipients = emails.map((appointment) => appointment.email);
-    let appointmentMeta: IEventAppointmentMeta | undefined;
-
-    for (const mail of emails) {
-      appointmentMeta = await create_appointment_meta({
-        action: rsvp.response,
-        event_id: rsvp.event_id,
-        appointment_id: appointment.id,
-        appointment_email: mail.id,
-        status: rsvp.response,
-      });
-    }
+    const appointmentMeta = await create_appointment_meta({
+      action: rsvp.response,
+      event_id: rsvp.event_id,
+      appointment_id: appointment.id,
+      appointment_email: emails.id,
+      status: rsvp.response,
+    });
 
     if (!appointmentMeta) {
       throw new Error("Appointment Meta not found");
@@ -103,7 +100,7 @@ async function handle_rsvp(req: Request): Promise<void> {
       EmailService.sendEmail(mailProvider, {
         from: quivoAddress,
         subject: `Ticket for Event`,
-        to: recipients as string[],
+        to: [emails.email as string],
         html: ticketTemplate,
         attachments: [
           {

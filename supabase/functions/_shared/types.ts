@@ -75,3 +75,14 @@ export interface IAppointmentContact {
     contact: Contact;
   };
 }
+
+
+export interface IEventMeta {
+  status: string;
+  event_id: number;
+  appointment_id: number;
+  action: string;
+  conferma?: string
+  note?: string;
+  appointment_email: number;
+}

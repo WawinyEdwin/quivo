@@ -1,8 +1,10 @@
 import {
   Appointment,
+  AppointmentEmail,
   Contact,
   IAppointmentContact,
   IEventAppointmentMeta,
+  IEventMeta,
   Ticket,
 } from "../types.ts";
 import { supabaseAdmin } from "./index.ts";
@@ -70,13 +72,11 @@ export async function update_appointment_by_uuid(
 }
 
 export async function create_appointment_meta(
-  status: string,
-  event_id: number,
-  appointment_id: number
+  eventMeta: IEventMeta
 ): Promise<IEventAppointmentMeta> {
   const { data, error } = await supabaseAdmin
     .from("event_appointment_meta")
-    .insert({ status, event_id, appointment_id })
+    .insert({ ...eventMeta })
     .select(`id, status, event:event_appointment_meta_event_id_fkey(*)`);
   if (error) {
     console.log("Create Appointment Meta", error);
@@ -86,15 +86,15 @@ export async function create_appointment_meta(
 
 export async function get_appointment_emails_by_appointment_id(
   appointment_id: number
-): Promise<{ email: string }[]> {
+): Promise<AppointmentEmail[]> {
   const { data, error } = await supabaseAdmin
     .from("appointment_emails")
-    .select("email")
+    .select("*")
     .eq("appointment_id", appointment_id);
   if (error) {
     console.log(error);
   }
-  return data as { email: string }[];
+  return data as unknown as AppointmentEmail[];
 }
 
 export async function get_ticket_by_appointment_id(

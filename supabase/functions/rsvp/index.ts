@@ -17,7 +17,7 @@ import {
   update_contacts,
 } from "../_shared/supabase/db.ts";
 import { generate_ticket } from "../_shared/ticket.ts";
-import { IRsvp } from "../_shared/types.ts";
+import { IEventAppointmentMeta, IRsvp } from "../_shared/types.ts";
 
 async function handle_ticket_creation(
   appointmentId: number,
@@ -38,12 +38,11 @@ async function handle_ticket_creation(
 
 async function handle_rsvp(req: Request): Promise<void> {
   const rsvp: IRsvp = await req.json();
-  const { appointment_uuid, event_id, job_title, response, invite } = rsvp;
 
   try {
-    if (appointment_uuid) {
-      if (job_title) {
-        update_appointment_by_uuid(job_title, appointment_uuid);
+    if (rsvp.appointment_uuid) {
+      if (rsvp.job_title) {
+        update_appointment_by_uuid(rsvp.job_title, rsvp.appointment_uuid);
       }
       // const appointment = await get_appointment_by_uuid(appointment_uuid);
       // update_contacts(
@@ -53,39 +52,58 @@ async function handle_rsvp(req: Request): Promise<void> {
     }
 
     const { appointment } = await find_appointment_by_appointment_email_uuid(
-      invite
+      rsvp.invite
     );
 
-    console.log(appointment);
     if (rsvp.date_of_birth) {
       update_contacts(
         { date_of_birth: rsvp.date_of_birth },
         appointment.contact.id as number
       );
     }
-    const appointmentMeta = await create_appointment_meta(
-      response,
-      event_id,
+
+    const emails = await get_appointment_emails_by_appointment_id(
       appointment.id
     );
 
-    if (response === "accepted") {
-      const ticketId = await handle_ticket_creation(appointment.id, event_id);
-      const emails = await get_appointment_emails_by_appointment_id(
-        appointment.id
+    if (!emails) {
+      throw new Error("No Appointment emails found");
+    }
+
+    const recipients = emails.map((appointment) => appointment.email);
+    let appointmentMeta: IEventAppointmentMeta | undefined;
+
+    for (const mail of emails) {
+      appointmentMeta = await create_appointment_meta({
+        action: rsvp.response,
+        event_id: rsvp.event_id,
+        appointment_id: appointment.id,
+        appointment_email: mail.id,
+        status: rsvp.response,
+      });
+    }
+
+    if (!appointmentMeta) {
+      throw new Error("Appointment Meta not found");
+    }
+
+    if (rsvp.response === "accepted") {
+      const ticketId = await handle_ticket_creation(
+        appointment.id,
+        rsvp.event_id
       );
-      const recipients = emails.map((appointment) => appointment.email);
+
       const generatedTicket = await generate_ticket({
         type: "base64",
         ticket_id: ticketId,
-        event: appointmentMeta?.event,
+        event: appointmentMeta.event,
         contact: appointment.contact,
       });
 
       EmailService.sendEmail(mailProvider, {
         from: quivoAddress,
         subject: `Ticket for Event`,
-        to: recipients,
+        to: recipients as string[],
         html: ticketTemplate,
         attachments: [
           {

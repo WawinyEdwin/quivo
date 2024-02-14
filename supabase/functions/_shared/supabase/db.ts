@@ -1,8 +1,8 @@
 import {
   Appointment,
-  ApppointmentEmail,
   Contact,
-  EventAppointmentMeta,
+  IAppointmentContact,
+  IEventAppointmentMeta,
   Ticket,
 } from "../types.ts";
 import { supabaseAdmin } from "./index.ts";
@@ -73,28 +73,28 @@ export async function create_appointment_meta(
   status: string,
   event_id: number,
   appointment_id: number
-): Promise<EventAppointmentMeta> {
+): Promise<IEventAppointmentMeta> {
   const { data, error } = await supabaseAdmin
     .from("event_appointment_meta")
     .insert({ status, event_id, appointment_id })
-    .select("*");
+    .select(`id, status, event:event_appointment_meta_event_id_fkey(*)`);
   if (error) {
     console.log("Create Appointment Meta", error);
   }
-  return data?.[0];
+  return data?.[0] as unknown as IEventAppointmentMeta;
 }
 
 export async function get_appointment_emails_by_appointment_id(
   appointment_id: number
-): Promise<ApppointmentEmail> {
+): Promise<{ email: string }[]> {
   const { data, error } = await supabaseAdmin
     .from("appointment_emails")
-    .select("*")
+    .select("email")
     .eq("appointment_id", appointment_id);
   if (error) {
     console.log(error);
   }
-  return data?.[0];
+  return data as { email: string }[];
 }
 
 export async function get_ticket_by_appointment_id(
@@ -104,6 +104,43 @@ export async function get_ticket_by_appointment_id(
     .from("ticket")
     .select("*")
     .eq("appointment_id", appointment_id);
+  if (error) {
+    console.log(error);
+  }
+  return data?.[0];
+}
+
+export async function find_appointment_by_appointment_email_uuid(
+  appointmentEmailUuid: string
+) {
+  const { data, error } = await supabaseAdmin
+    .from("appointment_emails")
+    .select(
+      `appointment:appointment_email_appointment_id_fkey (id, contact:appointments_contact_id_fkey(*))`
+    )
+    .eq("uuid", appointmentEmailUuid);
+  if (error) {
+    console.log(error);
+  }
+  return data?.[0] as unknown as IAppointmentContact;
+}
+
+export async function get_appointment_by_id(appointment_id: number) {
+  const { data, error } = await supabaseAdmin
+    .from("appointments")
+    .select(`id, contact:appointments_contact_id_fkey(*)`)
+    .eq("id", appointment_id);
+  if (error) {
+    console.log(error);
+  }
+  return data?.[0] as unknown as Appointment;
+}
+
+export async function get_contact_by_id(contact_id: number): Promise<Contact> {
+  const { data, error } = await supabaseAdmin
+    .from("contacts")
+    .select("*")
+    .eq("id", contact_id);
   if (error) {
     console.log(error);
   }

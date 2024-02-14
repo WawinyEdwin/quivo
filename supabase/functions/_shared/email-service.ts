@@ -52,6 +52,7 @@ export class EmailService {
         headers: mailgun_headers,
         body: formData,
       });
+      console.log('email sent to:', email.to)
       return await response.json();
     } catch (error) {
       console.error(error);

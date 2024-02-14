@@ -34,15 +34,20 @@ export type TicketGeneration = "base64" | "download";
 export interface ITicketData {
   type: TicketGeneration;
   ticket_id: string;
+  event: Event;
+  contact: Contact;
 }
 
 export interface IRsvp {
-  appointment_uuid: string;
+  appointment_uuid?: string;
+  invite: string;
   response: RsvpReponse;
   job_title?: string;
-  date_of_birth: string;
+  date_of_birth?: string;
   event_id: number;
 }
+
+export type Event = Database["public"]["Tables"]["event"]["Row"];
 
 export type RsvpReponse = "accepted" | "refused";
 
@@ -53,7 +58,20 @@ export type Appointment = Database["public"]["Tables"]["appointments"]["Row"];
 export type EventAppointmentMeta =
   Database["public"]["Tables"]["event_appointment_meta"]["Row"];
 
-export type ApppointmentEmail =
+export type AppointmentEmail =
   Database["public"]["Tables"]["appointment_emails"]["Row"];
 
 export type Contact = Database["public"]["Tables"]["contacts"]["Row"];
+
+export interface IEventAppointmentMeta {
+  id: string;
+  status: string;
+  event: Event;
+}
+
+export interface IAppointmentContact {
+  appointment: {
+    id: number;
+    contact: Contact;
+  };
+}

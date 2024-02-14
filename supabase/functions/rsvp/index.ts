@@ -3,31 +3,31 @@ import {
   jsonHeaders,
   mailProvider,
   quivoAddress,
+  ticketTemplate,
 } from "../_shared/constants.ts";
 import { corsHeaders } from "../_shared/cors.ts";
 import { EmailService } from "../_shared/email-service.ts";
 import {
   create_appointment_meta,
   create_ticket,
-  get_appointment_by_uuid,
+  find_appointment_by_appointment_email_uuid,
   get_appointment_emails_by_appointment_id,
   get_ticket_by_appointment_id,
   update_appointment_by_uuid,
   update_contacts,
 } from "../_shared/supabase/db.ts";
 import { generate_ticket } from "../_shared/ticket.ts";
-import { Appointment, IRsvp } from "../_shared/types.ts";
-import { ticketTemplate } from "../_shared/constants.ts";
+import { IRsvp } from "../_shared/types.ts";
 
 async function handle_ticket_creation(
-  updatedAppointment: Appointment,
+  appointmentId: number,
   event_id: number
 ): Promise<string> {
-  const oldTicket = await get_ticket_by_appointment_id(updatedAppointment.id);
+  const oldTicket = await get_ticket_by_appointment_id(appointmentId);
 
   if (!oldTicket) {
     const ticket = await create_ticket({
-      appointment_id: updatedAppointment.id,
+      appointment_id: appointmentId,
       event_id,
     });
     return ticket.id;
@@ -36,57 +36,67 @@ async function handle_ticket_creation(
   return oldTicket.id;
 }
 
-async function generate_and_send_ticket(
-  updatedAppointment: Appointment,
-  ticketId: string
-): Promise<void> {
-  const generatedTicket = await generate_ticket({
-    type: "base64",
-    ticket_id: ticketId,
-  });
-
-  const appointment_emails = await get_appointment_emails_by_appointment_id(
-    updatedAppointment.id
-  );
-
-  EmailService.sendEmail(mailProvider, {
-    from: quivoAddress,
-    subject: `Ticket for Event`, // to be changed
-    to: [appointment_emails.email as string],
-    html: ticketTemplate,
-    attachments: [
-      {
-        name: `${ticketId}.pdf`,
-        file: generatedTicket as Uint8Array,
-      },
-    ],
-  });
-}
-
 async function handle_rsvp(req: Request): Promise<void> {
   const rsvp: IRsvp = await req.json();
-  const { appointment_uuid, event_id, job_title, response } = rsvp;
+  const { appointment_uuid, event_id, job_title, response, invite } = rsvp;
 
   try {
-    if (job_title) {
-      update_appointment_by_uuid(job_title, appointment_uuid);
+    if (appointment_uuid) {
+      if (job_title) {
+        update_appointment_by_uuid(job_title, appointment_uuid);
+      }
+      // const appointment = await get_appointment_by_uuid(appointment_uuid);
+      // update_contacts(
+      //   { date_of_birth: rsvp.date_of_birth },
+      //   appointment.contact_id as number
+      // );
     }
 
-    const appointment = await get_appointment_by_uuid(appointment_uuid);
-    
-    update_contacts(
-      { date_of_birth: rsvp.date_of_birth },
-      appointment.contact_id as number
+    const { appointment } = await find_appointment_by_appointment_email_uuid(
+      invite
     );
 
-    create_appointment_meta(response, event_id, appointment.id);
+    console.log(appointment);
+    if (rsvp.date_of_birth) {
+      update_contacts(
+        { date_of_birth: rsvp.date_of_birth },
+        appointment.contact.id as number
+      );
+    }
+    const appointmentMeta = await create_appointment_meta(
+      response,
+      event_id,
+      appointment.id
+    );
 
     if (response === "accepted") {
-      const ticketId = await handle_ticket_creation(appointment, event_id);
-      generate_and_send_ticket(appointment, ticketId);
+      const ticketId = await handle_ticket_creation(appointment.id, event_id);
+      const emails = await get_appointment_emails_by_appointment_id(
+        appointment.id
+      );
+      const recipients = emails.map((appointment) => appointment.email);
+      const generatedTicket = await generate_ticket({
+        type: "base64",
+        ticket_id: ticketId,
+        event: appointmentMeta?.event,
+        contact: appointment.contact,
+      });
+
+      EmailService.sendEmail(mailProvider, {
+        from: quivoAddress,
+        subject: `Ticket for Event`,
+        to: recipients,
+        html: ticketTemplate,
+        attachments: [
+          {
+            name: `${ticketId}.pdf`,
+            file: generatedTicket,
+          },
+        ],
+      });
     }
   } catch (error) {
-    console.log("Error on Ticket Gen:", error);
+    console.log("Error on Ticket Generation:", error);
   }
 }
 

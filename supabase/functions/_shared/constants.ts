@@ -73,7 +73,7 @@ u+.emailify .gs{background:#000;mix-blend-mode:screen;display:inline-block;paddi
 </style>
 <![endif]-->
 </head>
-<body lang="en" link="#DD0000" vlink="#DD0000" class="emailify" style="mso-line-height-rule:exactly;mso-hyphenate:none;word-spacing:normal;background-color:#f4f7fa;"><div style="display:none;font-size:1px;color:#ffffff;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">Registrazione completata con successo.</div><div class="bg" style="background-color:#f4f7fa;" lang="en">
+<body lang="en" link="#DD0000" vlink="#DD0000" class="emailify" style="mso-line-height-rule:exactly;mso-hyphenate:none;word-spacing:normal;background-color:#f4f7fa;"><div class="bg" style="background-color:#f4f7fa;" lang="en">
 <!--[if mso | IE]>
 <table align="center" border="0" cellpadding="0" cellspacing="0" class="r-outlook -outlook pt-13-outlook pr-0-outlook pb-13-outlook pl-0-outlook -outlook" role="presentation" style="width:660px;" width="660"><tr><td style="line-height:0;font-size:0;mso-line-height-rule:exactly;">
 <![endif]--><div class="r  pt-13 pr-0 pb-13 pl-0" style="background:#003e7e;background-color:#003e7e;margin:0px auto;max-width:660px;">
@@ -118,7 +118,7 @@ u+.emailify .gs{background:#000;mix-blend-mode:screen;display:inline-block;paddi
 <![endif]--><div class="pc100 ogf c  pt-5 pr-7 pb-5 pl-7 s-23" style="font-size:0;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100.0000%;">
 <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%"><tbody><tr><td style="background-color:#fffffe;border:none;vertical-align:top;padding:8px 8px 8px 8px;">
 <table border="0" cellpadding="0" cellspacing="0" role="presentation" style width="100%"><tbody><tr><td align="center" class="i  ah w-63" style="font-size:0;padding:0;word-break:break-word;">
-<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0;"><tbody><tr><td style="width:80px;"> <a href="https://www.un-industria.it/" target="_blank" title> <img alt src="https://e.hypermatic.com/ae1bf87eba71337c8a9b891c491cc1c6.png" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" title width="80" height="auto"></a>
+<table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0;"><tbody><tr><td style="width:80px;"> <a href="https://www.un-industria.it/" target="_blank" title> <img alt src="https://e.hypermatic.com/f603cb7f800d3f6771988b92047e1dec.png" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" title width="80" height="auto"></a>
 </td></tr></tbody></table>
 </td></tr></tbody></table>
 </td></tr></tbody></table></div>

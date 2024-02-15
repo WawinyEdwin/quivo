@@ -14,6 +14,7 @@ import {
   get_appointment_emails_by_appointment_id,
   get_ticket_by_appointment_id,
   update_appointment_by_uuid,
+  update_appointment_meta,
   update_contacts,
 } from "../_shared/supabase/db.ts";
 import { generate_ticket } from "../_shared/ticket.ts";
@@ -78,7 +79,7 @@ async function handle_rsvp(req: Request): Promise<void> {
     }
 
     const appointmentMeta = await create_appointment_meta({
-      action: rsvp.response,
+      action: rsvp.response === "resent" ? "resent" : rsvp.response,
       event_id: rsvp.event_id,
       appointment_id: appointment.id,
       appointment_email: invokerAppointmentEmail.id,
@@ -89,7 +90,7 @@ async function handle_rsvp(req: Request): Promise<void> {
       throw new Error("Appointment Meta not found");
     }
 
-    if (rsvp.response === "accepted") {
+    if (rsvp.response === "accepted" || rsvp.response === "resent") {
       const ticketId = await handle_ticket_creation(
         appointment.id,
         rsvp.event_id
@@ -113,16 +114,17 @@ async function handle_rsvp(req: Request): Promise<void> {
 
       EmailService.sendEmail(mailProvider, {
         from: `Unindustria ${unindustriaConfig.email}`,
-        subject: `Biglietto d'ingresso Assemblea Generale Unindustria 2024`,
+        subject: `Coupon Ingresso Assemblea Generale Unindustria 2024`,
         to: [recipients.join(", ")],
         html: unindustriaConfig.template,
         attachments: [
           {
-            name: `${ticketId}.pdf`,
+            name: `AssembleaUnindustria2024-${ticketId}.pdf`,
             file: generatedTicket,
           },
         ],
       });
+      update_appointment_meta(appointmentMeta.id, { email_sent: true });
     }
   } catch (error) {
     console.log("Error on Ticket Generation:", error);

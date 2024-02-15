@@ -49,7 +49,7 @@ export interface IRsvp {
 
 export type Event = Database["public"]["Tables"]["event"]["Row"];
 
-export type RsvpReponse = "accepted" | "refused";
+export type RsvpReponse = "accepted" | "refused" | "resent";
 
 export type Ticket = Database["public"]["Tables"]["ticket"]["Row"];
 
@@ -64,7 +64,7 @@ export type AppointmentEmail =
 export type Contact = Database["public"]["Tables"]["contacts"]["Row"];
 
 export interface IEventAppointmentMeta {
-  id: string;
+  id: number;
   status: string;
   event: Event;
 }
@@ -85,4 +85,5 @@ export interface IEventMeta {
   conferma?: string
   note?: string;
   appointment_email: number;
+  email_sent?: boolean;
 }

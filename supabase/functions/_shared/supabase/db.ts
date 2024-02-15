@@ -84,6 +84,21 @@ export async function create_appointment_meta(
   return data?.[0] as unknown as IEventAppointmentMeta;
 }
 
+export const update_appointment_meta = async (
+  id: number,
+  eventMeta: Partial<IEventMeta>
+) => {
+  const { data, error } = await supabaseAdmin
+    .from("event_appointment_meta")
+    .update({ ...eventMeta })
+    .eq("id", id)
+    .select(`id, status, event:event_appointment_meta_event_id_fkey(*)`);
+  if (error) {
+    console.log("Update Appointment Meta", error);
+  }
+  return data?.[0] as unknown as IEventAppointmentMeta;
+};
+
 export async function get_appointment_email_by_appointment_email_uuid(
   appointment_email_uuid: string
 ): Promise<AppointmentEmail> {

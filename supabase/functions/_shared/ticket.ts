@@ -33,13 +33,13 @@ export const generate_ticket = async (
     },
   });
   const qrImage = await doc.embedPng(qrCode);
-  const qrDims = qrImage.scale(1.2);
+  const qrDims = qrImage.scale(1.4);
   const qrXPos = (page.getWidth() - qrDims.width) / 2;
   const qrYPos = (page.getHeight() - qrDims.height) / 2;
 
   page.drawImage(qrImage, {
     x: qrXPos,
-    y: qrYPos - 80,
+    y: qrYPos - 90,
     width: qrDims.width,
     height: qrDims.height,
     color: rgb(0 / 255, 62 / 255, 126 / 255),
@@ -58,7 +58,7 @@ export const generate_ticket = async (
 
   page.drawText(firstName, {
     x: firstNameXPos,
-    y: qrYPos - 90,
+    y: qrYPos - 120,
     size: 24,
     font: font,
     color: rgb(0 / 255, 62 / 255, 126 / 255),
@@ -66,7 +66,7 @@ export const generate_ticket = async (
 
   page.drawText(lastName, {
     x: lastNameXPos,
-    y: qrYPos - 120,
+    y: qrYPos - 160,
     size: 24,
     font: font,
     color: rgb(0 / 255, 62 / 255, 126 / 255),

@@ -2,8 +2,7 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import {
   jsonHeaders,
   mailProvider,
-  quivoAddress,
-  ticketTemplate,
+  unindustriaConfig,
 } from "../_shared/constants.ts";
 import { corsHeaders } from "../_shared/cors.ts";
 import { EmailService } from "../_shared/email-service.ts";
@@ -12,6 +11,7 @@ import {
   create_ticket,
   find_appointment_by_appointment_email_uuid,
   get_appointment_email_by_appointment_email_uuid,
+  get_appointment_emails_by_appointment_id,
   get_ticket_by_appointment_id,
   update_appointment_by_uuid,
   update_contacts,
@@ -30,8 +30,10 @@ async function handle_ticket_creation(
       appointment_id: appointmentId,
       event_id,
     });
+    console.log("Old Ticket not found, creating new ticket");
     return ticket.id;
   }
+  console.log("Old Ticket found, updating ticket");
 
   return oldTicket.id;
 }
@@ -51,9 +53,15 @@ async function handle_rsvp(req: Request): Promise<void> {
       // );
     }
 
-    const { appointment } = await find_appointment_by_appointment_email_uuid(
+    const appointmentEmail = await find_appointment_by_appointment_email_uuid(
       rsvp.invite
     );
+
+    if (!appointmentEmail) {
+      throw new Error("Appointment not found");
+    }
+
+    const appointment = appointmentEmail.appointment;
 
     if (rsvp.date_of_birth) {
       update_contacts(
@@ -62,13 +70,10 @@ async function handle_rsvp(req: Request): Promise<void> {
       );
     }
 
-    const emails = await get_appointment_email_by_appointment_email_uuid(
-      rsvp.invite
-    );
-    console.log(emails);
-    
+    const invokerAppointmentEmail =
+      await get_appointment_email_by_appointment_email_uuid(rsvp.invite);
 
-    if (!emails) {
+    if (!invokerAppointmentEmail) {
       throw new Error("No Appointment emails found");
     }
 
@@ -76,7 +81,7 @@ async function handle_rsvp(req: Request): Promise<void> {
       action: rsvp.response,
       event_id: rsvp.event_id,
       appointment_id: appointment.id,
-      appointment_email: emails.id,
+      appointment_email: invokerAppointmentEmail.id,
       status: rsvp.response,
     });
 
@@ -97,11 +102,20 @@ async function handle_rsvp(req: Request): Promise<void> {
         contact: appointment.contact,
       });
 
+      const emails = await get_appointment_emails_by_appointment_id(
+        appointment.id
+      );
+      console.log("Emails:", emails);
+
+      const recipients = emails.map((appointment) => appointment.email);
+
+      console.log("Sending Email to:", recipients.join(", "));
+
       EmailService.sendEmail(mailProvider, {
-        from: quivoAddress,
-        subject: `Ticket for Event`,
-        to: [emails.email as string],
-        html: ticketTemplate,
+        from: unindustriaConfig.email,
+        subject: `Registrazione completata con successo!`,
+        to: [recipients.join(", ")],
+        html: unindustriaConfig.template,
         attachments: [
           {
             name: `${ticketId}.pdf`,

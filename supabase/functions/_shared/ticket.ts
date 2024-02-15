@@ -27,7 +27,7 @@ export const generate_ticket = async (
     y: unindustriaY - 10,
     width: page.getWidth(),
     height: page.getHeight(),
-    color: rgb(8 / 255, 60 / 255, 124 / 255),
+    color: rgb(0 / 255, 62 / 255, 126 / 255),
   });
 
   page.drawImage(unindustriaLogoImage, {
@@ -46,11 +46,11 @@ export const generate_ticket = async (
   const eventLogoY = 500;
 
   page.drawRectangle({
-    x: 0, // Adjust position as needed
-    y: eventLogoY - 10, // Adjust position as needed
-    width: page.getWidth(), // Adjust size as needed
-    height: eventLogoDims.height + 20, // Adjust size as needed
-    color: rgb(8 / 255, 60 / 255, 124 / 255), // Use the desired blue color
+    x: 0,
+    y: eventLogoY - 10,
+    width: page.getWidth(),
+    height: eventLogoDims.height + 20,
+    color: rgb(0 / 255, 62 / 255, 126 / 255),
   });
 
   page.drawImage(eventLogoImage, {
@@ -62,35 +62,49 @@ export const generate_ticket = async (
 
   const qrCode = await QRCode.toBuffer(ticketData.ticket_id, {
     color: {
-      dark: "#083c7c",
+      dark: "#003E7E",
       light: "#ffffff",
     },
   });
   const qrImage = await doc.embedPng(qrCode);
-  const qrDims = qrImage.scale(1.5);
+  const qrDims = qrImage.scale(1);
   const qrXPos = (page.getWidth() - qrDims.width) / 2;
   const qrYPos = (page.getHeight() - qrDims.height) / 2;
 
   page.drawImage(qrImage, {
     x: qrXPos,
-    y: qrYPos - 50,
+    y: qrYPos - 60,
     width: qrDims.width,
     height: qrDims.height,
-    color: rgb(8 / 255, 60 / 255, 124 / 255),
+    color: rgb(0 / 255, 62 / 255, 126 / 255),
   });
 
   const font = await doc.embedFont(StandardFonts.HelveticaBold);
 
-  page.drawText(
-    `${ticketData.contact.first_name} \n ${ticketData.contact.last_name} `,
-    {
-      x: qrXPos + 20,
-      y: qrYPos - 90,
-      size: 24,
-      color: rgb(8 / 255, 60 / 255, 124 / 255),
-      font: font,
-    }
-  );
+  const firstName = ticketData.contact.first_name;
+  const lastName = ticketData.contact.last_name?.toUpperCase();
+
+  const firstNameWidth = font.widthOfTextAtSize(firstName, 24);
+  const lastNameWidth = font.widthOfTextAtSize(lastName, 24);
+
+  const firstNameXPos = qrXPos + (qrDims.width - firstNameWidth) / 2;
+  const lastNameXPos = qrXPos + (qrDims.width - lastNameWidth) / 2;
+
+  page.drawText(firstName, {
+    x: firstNameXPos,
+    y: qrYPos - 90,
+    size: 24,
+    font: font,
+    color: rgb(0 / 255, 62 / 255, 126 / 255),
+  });
+
+  page.drawText(lastName, {
+    x: lastNameXPos,
+    y: qrYPos - 120, // Adjust the vertical position as needed
+    size: 24,
+    font: font,
+    color: rgb(0 / 255, 62 / 255, 126 / 255),
+  });
 
   page.drawLine({
     start: { x: 0, y: 120 },
@@ -112,7 +126,7 @@ export const generate_ticket = async (
     x: 20,
     y: 30,
     size: 50,
-    color: rgb(200 / 255, 200 / 255, 200 / 255),
+    color: rgb(230 / 255, 230 / 255, 230 / 255),
     borderRadius: 20,
   });
 
@@ -124,7 +138,7 @@ export const generate_ticket = async (
     y: 60,
     size: 14,
     font: font,
-    color: rgb(8 / 255, 60 / 255, 124 / 255),
+    color: rgb(0 / 255, 62 / 255, 126 / 255),
   });
 
   page.drawText(locationAddress, {
@@ -138,7 +152,7 @@ export const generate_ticket = async (
     x: 360,
     y: 30,
     size: 50,
-    color: rgb(200 / 255, 200 / 255, 200 / 255),
+    color: rgb(230 / 255, 230 / 255, 230 / 255),
     borderRadius: 20,
   });
 
@@ -158,13 +172,15 @@ export const generate_ticket = async (
     y: 60,
     size: 16,
     font: font,
-    color: rgb(8 / 255, 60 / 255, 124 / 255),
+    color: rgb(0 / 255, 62 / 255, 126 / 255),
   });
 
   page.drawText(timeText, {
     x: 420,
     y: 40,
     size: 12,
+    font: font,
+    color: rgb(73 / 255, 73 / 255, 73 / 255),
   });
   const pdfBytes = await doc.save();
   return pdfBytes;

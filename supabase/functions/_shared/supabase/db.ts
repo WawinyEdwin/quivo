@@ -146,3 +146,17 @@ export async function get_contact_by_id(contact_id: number): Promise<Contact> {
   }
   return data?.[0];
 }
+
+export async function get_appointment_emails_by_appointment_id(
+  appointment_id: number
+) {
+  const { data, error } = await supabaseAdmin
+    .from("appointment_emails")
+    .select("*")
+    .eq("appointment_id", appointment_id);
+
+  if (error) {
+    console.log(error);
+  }
+  return data as unknown as AppointmentEmail[];
+}

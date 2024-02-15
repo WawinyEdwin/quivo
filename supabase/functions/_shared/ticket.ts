@@ -39,7 +39,7 @@ export const generate_ticket = async (
 
   page.drawImage(qrImage, {
     x: qrXPos,
-    y: qrYPos - 90,
+    y: (page.getHeight() / 2) - qrDims.height - 10,
     width: qrDims.width,
     height: qrDims.height,
     color: rgb(0 / 255, 62 / 255, 126 / 255),
@@ -58,7 +58,7 @@ export const generate_ticket = async (
 
   page.drawText(firstName, {
     x: firstNameXPos,
-    y: qrYPos - 120,
+    y: qrYPos - 130,
     size: 24,
     font: font,
     color: rgb(0 / 255, 62 / 255, 126 / 255),

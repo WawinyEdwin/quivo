@@ -112,8 +112,8 @@ async function handle_rsvp(req: Request): Promise<void> {
       console.log("Sending Email to:", recipients.join(", "));
 
       EmailService.sendEmail(mailProvider, {
-        from: unindustriaConfig.email,
-        subject: `Registrazione completata con successo!`,
+        from: `Unindustria ${unindustriaConfig.email}`,
+        subject: `Biglietto d'ingresso Assemblea Generale Unindustria 2024`,
         to: [recipients.join(", ")],
         html: unindustriaConfig.template,
         attachments: [

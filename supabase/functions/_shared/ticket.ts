@@ -15,49 +15,15 @@ export const generate_ticket = async (
   page.PDFFont = "Inter-Regular";
 
   const unindustriaLogoBytes = await fetch(
-    "https://frdznxvduztcsimohtsa.supabase.co/storage/v1/object/public/assets/Image.png"
+    "https://frdznxvduztcsimohtsa.supabase.co/storage/v1/object/public/assets/blue_header.png"
   ).then((res) => res.arrayBuffer());
   const unindustriaLogoImage = await doc.embedPng(unindustriaLogoBytes);
-  const unindustriaLogoDims = unindustriaLogoImage.scale(0.9);
-  const unindustriaX = (page.getWidth() - unindustriaLogoDims.width) / 2;
-  const unindustriaY = page.getHeight() - 100;
-
-  page.drawRectangle({
-    x: 0,
-    y: unindustriaY - 10,
-    width: page.getWidth(),
-    height: page.getHeight(),
-    color: rgb(0 / 255, 62 / 255, 126 / 255),
-  });
 
   page.drawImage(unindustriaLogoImage, {
-    x: unindustriaX,
-    y: unindustriaY,
-    width: unindustriaLogoDims.width,
-    height: unindustriaLogoDims.height,
-  });
-
-  const eventLogoBytes = await fetch(
-    "https://frdznxvduztcsimohtsa.supabase.co/storage/v1/object/public/assets/Logo%20Assemblea%202024%202.png"
-  ).then((res) => res.arrayBuffer());
-  const eventLogoImage = await doc.embedPng(eventLogoBytes);
-  const eventLogoDims = eventLogoImage.scale(0.9);
-  const eventLogoX = (page.getWidth() - eventLogoDims.width) / 2;
-  const eventLogoY = 500;
-
-  page.drawRectangle({
     x: 0,
-    y: eventLogoY - 10,
+    y: page.getHeight() / 2,
     width: page.getWidth(),
-    height: eventLogoDims.height + 20,
-    color: rgb(0 / 255, 62 / 255, 126 / 255),
-  });
-
-  page.drawImage(eventLogoImage, {
-    x: eventLogoX,
-    y: eventLogoY,
-    width: eventLogoDims.width,
-    height: eventLogoDims.height,
+    height: page.getHeight() / 2,
   });
 
   const qrCode = await QRCode.toBuffer(ticketData.ticket_id, {
@@ -67,13 +33,13 @@ export const generate_ticket = async (
     },
   });
   const qrImage = await doc.embedPng(qrCode);
-  const qrDims = qrImage.scale(1);
+  const qrDims = qrImage.scale(1.2);
   const qrXPos = (page.getWidth() - qrDims.width) / 2;
   const qrYPos = (page.getHeight() - qrDims.height) / 2;
 
   page.drawImage(qrImage, {
     x: qrXPos,
-    y: qrYPos - 60,
+    y: qrYPos - 80,
     width: qrDims.width,
     height: qrDims.height,
     color: rgb(0 / 255, 62 / 255, 126 / 255),
@@ -100,7 +66,7 @@ export const generate_ticket = async (
 
   page.drawText(lastName, {
     x: lastNameXPos,
-    y: qrYPos - 120, // Adjust the vertical position as needed
+    y: qrYPos - 120,
     size: 24,
     font: font,
     color: rgb(0 / 255, 62 / 255, 126 / 255),
@@ -122,12 +88,17 @@ export const generate_ticket = async (
     borderColor: rgb(0, 0, 0),
   });
 
-  page.drawSquare({
+  const addressBytes = await fetch(
+    "https://frdznxvduztcsimohtsa.supabase.co/storage/v1/object/public/assets/address_icon@2x.png"
+  ).then((res) => res.arrayBuffer());
+  const addressImage = await doc.embedPng(addressBytes);
+
+  page.drawImage(addressImage, {
     x: 20,
     y: 30,
-    size: 50,
+    width: 50,
+    height: 50,
     color: rgb(230 / 255, 230 / 255, 230 / 255),
-    borderRadius: 20,
   });
 
   const locationName = ticketData.event.location_name;
@@ -145,15 +116,20 @@ export const generate_ticket = async (
     x: 80,
     y: 40,
     size: 12,
-    color: rgb(0, 0, 0),
+    font: font,
+    color: rgb(73 / 255, 73 / 255, 73 / 255),
   });
 
-  page.drawSquare({
+  const calendarBytes = await fetch(
+    "https://frdznxvduztcsimohtsa.supabase.co/storage/v1/object/public/assets/calendar_icon@2x.png"
+  ).then((res) => res.arrayBuffer());
+  const calendarImage = await doc.embedPng(calendarBytes);
+  page.drawImage(calendarImage, {
     x: 360,
     y: 30,
-    size: 50,
+    width: 50,
+    height: 50,
     color: rgb(230 / 255, 230 / 255, 230 / 255),
-    borderRadius: 20,
   });
 
   const dateText = new Date(
@@ -167,7 +143,8 @@ export const generate_ticket = async (
     ticketData.event.date_start as string
   ).toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });
 
-  page.drawText(dateText, {
+  const titleCaseDateText = toTitleCase(dateText);
+  page.drawText(titleCaseDateText, {
     x: 420,
     y: 60,
     size: 16,
@@ -184,4 +161,11 @@ export const generate_ticket = async (
   });
   const pdfBytes = await doc.save();
   return pdfBytes;
+};
+
+
+const toTitleCase = (str: string) => {
+  return str.replace(/\w\S*/g, function (txt) {
+    return txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase();
+  });
 };

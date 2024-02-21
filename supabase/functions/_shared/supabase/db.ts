@@ -2,9 +2,11 @@ import {
   Appointment,
   AppointmentEmail,
   Contact,
+  IAppointment,
   IAppointmentContact,
   IEventAppointmentMeta,
   IEventMeta,
+  ITicket,
   Ticket,
 } from "../types.ts";
 import { supabaseAdmin } from "./index.ts";
@@ -145,7 +147,7 @@ export async function get_appointment_by_id(appointment_id: number) {
   if (error) {
     console.log(error);
   }
-  return data?.[0] as unknown as Appointment;
+  return data?.[0] as unknown as IAppointment;
 }
 
 export async function get_contact_by_id(contact_id: number): Promise<Contact> {
@@ -172,3 +174,17 @@ export async function get_appointment_emails_by_appointment_id(
   }
   return data as unknown as AppointmentEmail[];
 }
+
+export const get_ticket_by_id = async (ticket_id: string) => {
+  const { data, error } = await supabaseAdmin
+    .from("ticket")
+    .select(
+      "id, appointment_id, event:public_ticket_event_id_fkey(*), status, entry, created_at, seat_id"
+    )
+    .eq("id", ticket_id)
+    .single();
+  if (error) {
+    console.log(error);
+  }
+  return data as unknown as ITicket;
+};

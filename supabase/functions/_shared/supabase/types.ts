@@ -57,6 +57,7 @@ export type Database = {
           email: string | null;
           id: number;
           is_preferred: boolean;
+          uuid: string;
           workspace_id: number | null;
         };
         Insert: {
@@ -64,6 +65,7 @@ export type Database = {
           email?: string | null;
           id?: number;
           is_preferred?: boolean;
+          uuid?: string;
           workspace_id?: number | null;
         };
         Update: {
@@ -71,6 +73,7 @@ export type Database = {
           email?: string | null;
           id?: number;
           is_preferred?: boolean;
+          uuid?: string;
           workspace_id?: number | null;
         };
         Relationships: [
@@ -125,13 +128,6 @@ export type Database = {
             foreignKeyName: "appointment_list_list_id_fkey";
             columns: ["list_id"];
             isOneToOne: false;
-            referencedRelation: "invited_lists";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "appointment_list_list_id_fkey";
-            columns: ["list_id"];
-            isOneToOne: false;
             referencedRelation: "list";
             referencedColumns: ["id"];
           },
@@ -140,13 +136,6 @@ export type Database = {
             columns: ["list_id"];
             isOneToOne: false;
             referencedRelation: "selected_invited_lists";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "appointment_list_list_id_fkey";
-            columns: ["list_id"];
-            isOneToOne: false;
-            referencedRelation: "selected_invited_lists_detail";
             referencedColumns: ["id"];
           }
         ];
@@ -319,6 +308,54 @@ export type Database = {
           }
         ];
       };
+      appointments_bak20240224: {
+        Row: {
+          appointment_category_id: number | null;
+          cind_id: number | null;
+          company_id: number | null;
+          contact_id: number | null;
+          created_at: string | null;
+          external_code: string | null;
+          id: number | null;
+          job_office: string | null;
+          job_title: string | null;
+          job_title_category_id: number | null;
+          source: string | null;
+          uuid: string | null;
+          workspace_id: number | null;
+        };
+        Insert: {
+          appointment_category_id?: number | null;
+          cind_id?: number | null;
+          company_id?: number | null;
+          contact_id?: number | null;
+          created_at?: string | null;
+          external_code?: string | null;
+          id?: number | null;
+          job_office?: string | null;
+          job_title?: string | null;
+          job_title_category_id?: number | null;
+          source?: string | null;
+          uuid?: string | null;
+          workspace_id?: number | null;
+        };
+        Update: {
+          appointment_category_id?: number | null;
+          cind_id?: number | null;
+          company_id?: number | null;
+          contact_id?: number | null;
+          created_at?: string | null;
+          external_code?: string | null;
+          id?: number | null;
+          job_office?: string | null;
+          job_title?: string | null;
+          job_title_category_id?: number | null;
+          source?: string | null;
+          uuid?: string | null;
+          workspace_id?: number | null;
+        };
+        Relationships: [];
+      };
       associations: {
         Row: {
           created_at: string;
@@ -446,6 +483,7 @@ export type Database = {
           pec: string | null;
           postal_code: string | null;
           region: string | null;
+          short_name: string | null;
           source: string | null;
           state: string | null;
           tax_code: string | null;
@@ -467,6 +505,7 @@ export type Database = {
           pec?: string | null;
           postal_code?: string | null;
           region?: string | null;
+          short_name?: string | null;
           source?: string | null;
           state?: string | null;
           tax_code?: string | null;
@@ -488,6 +527,7 @@ export type Database = {
           pec?: string | null;
           postal_code?: string | null;
           region?: string | null;
+          short_name?: string | null;
           source?: string | null;
           state?: string | null;
           tax_code?: string | null;
@@ -766,33 +806,49 @@ export type Database = {
       };
       event_appointment_meta: {
         Row: {
+          action: string | null;
+          appointment_email: number | null;
           appointment_id: number | null;
           conferma: string | null;
+          created_at: string;
+          email_sent: boolean | null;
           event_id: number | null;
           id: number;
-          last_change: string;
           note: string | null;
           status: string | null;
         };
         Insert: {
+          action?: string | null;
+          appointment_email?: number | null;
           appointment_id?: number | null;
           conferma?: string | null;
+          created_at?: string;
+          email_sent?: boolean | null;
           event_id?: number | null;
           id?: number;
-          last_change?: string;
           note?: string | null;
           status?: string | null;
         };
         Update: {
+          action?: string | null;
+          appointment_email?: number | null;
           appointment_id?: number | null;
           conferma?: string | null;
+          created_at?: string;
+          email_sent?: boolean | null;
           event_id?: number | null;
           id?: number;
-          last_change?: string;
           note?: string | null;
           status?: string | null;
         };
         Relationships: [
+          {
+            foreignKeyName: "event_appointment_meta_appointment_email_fkey";
+            columns: ["appointment_email"];
+            isOneToOne: false;
+            referencedRelation: "appointment_emails";
+            referencedColumns: ["id"];
+          },
           {
             foreignKeyName: "event_appointment_meta_appointment_id_fkey";
             columns: ["appointment_id"];
@@ -834,13 +890,6 @@ export type Database = {
             foreignKeyName: "event_list_list_id_fkey";
             columns: ["list_id"];
             isOneToOne: false;
-            referencedRelation: "invited_lists";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "event_list_list_id_fkey";
-            columns: ["list_id"];
-            isOneToOne: false;
             referencedRelation: "list";
             referencedColumns: ["id"];
           },
@@ -849,13 +898,6 @@ export type Database = {
             columns: ["list_id"];
             isOneToOne: false;
             referencedRelation: "selected_invited_lists";
-            referencedColumns: ["id"];
-          },
-          {
-            foreignKeyName: "event_list_list_id_fkey";
-            columns: ["list_id"];
-            isOneToOne: false;
-            referencedRelation: "selected_invited_lists_detail";
             referencedColumns: ["id"];
           }
         ];
@@ -905,20 +947,38 @@ export type Database = {
           last_updated: string | null;
           name: string | null;
           notes: string | null;
+          workspace_id: number | null;
         };
         Insert: {
           id?: number;
           last_updated?: string | null;
           name?: string | null;
           notes?: string | null;
+          workspace_id?: number | null;
         };
         Update: {
           id?: number;
           last_updated?: string | null;
           name?: string | null;
           notes?: string | null;
+          workspace_id?: number | null;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "list_workspace_id_fkey";
+            columns: ["workspace_id"];
+            isOneToOne: false;
+            referencedRelation: "workspace_members_view";
+            referencedColumns: ["workspace_id"];
+          },
+          {
+            foreignKeyName: "list_workspace_id_fkey";
+            columns: ["workspace_id"];
+            isOneToOne: false;
+            referencedRelation: "workspaces";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       logs: {
         Row: {
@@ -1095,10 +1155,17 @@ export type Database = {
         };
         Relationships: [
           {
-            foreignKeyName: "ticket_appointment_id_fkey";
+            foreignKeyName: "public_ticket_appointment_id_fkey";
             columns: ["appointment_id"];
             isOneToOne: false;
             referencedRelation: "appointments";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_ticket_event_id_fkey";
+            columns: ["event_id"];
+            isOneToOne: false;
+            referencedRelation: "event";
             referencedColumns: ["id"];
           },
           {
@@ -1390,15 +1457,36 @@ export type Database = {
         };
         Relationships: [];
       };
-      invited_lists: {
+      event_attendance_log: {
         Row: {
-          contacts_count: number | null;
-          has_duplicates: boolean | null;
+          appointment_email: string | null;
+          appointment_id: number | null;
+          conferma: string | null;
+          created_at: string | null;
+          event_id: number | null;
+          first_name: string | null;
           id: number | null;
-          name: string | null;
-          notes: string | null;
+          last_name: string | null;
+          logged_action: string | null;
+          note: string | null;
+          status: string | null;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "appointments";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_event_id_fkey";
+            columns: ["event_id"];
+            isOneToOne: false;
+            referencedRelation: "event";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       selected_invited_lists: {
         Row: {
@@ -1410,17 +1498,6 @@ export type Database = {
           last_name: string | null;
           list_name: string | null;
           name: string | null;
-        };
-        Relationships: [];
-      };
-      selected_invited_lists_detail: {
-        Row: {
-          appointments: Json | null;
-          appointments_count: number | null;
-          has_duplicates: boolean | null;
-          id: number | null;
-          name: string | null;
-          notes: string | null;
         };
         Relationships: [];
       };
@@ -1464,9 +1541,78 @@ export type Database = {
           company_name: string;
         }[];
       };
+      get_attendance:
+        | {
+            Args: {
+              complete: boolean;
+            };
+            Returns: {
+              first_name: string;
+              last_name: string;
+              id: number;
+              event_id: number;
+              appointment_id: number;
+              status: string;
+              created_at: string;
+              note: string;
+              conferma: string;
+              logged_action: string;
+              appointment_email: string;
+            }[];
+          }
+        | {
+            Args: {
+              complete: boolean;
+              items: number;
+              page: number;
+            };
+            Returns: {
+              first_name: string;
+              last_name: string;
+              id: number;
+              event_id: number;
+              appointment_id: number;
+              status: string;
+              created_at: string;
+              note: string;
+              conferma: string;
+              logged_action: string;
+              appointment_email: string;
+            }[];
+          };
+      get_attendance_paginated: {
+        Args: {
+          complete: boolean;
+          items: number;
+          page: number;
+        };
+        Returns: {
+          first_name: string;
+          last_name: string;
+          id: number;
+          event_id: number;
+          appointment_id: number;
+          status: string;
+          created_at: string;
+          note: string;
+          conferma: string;
+          logged_action: string;
+          appointment_email: string;
+        }[];
+      };
       get_current_user_id: {
         Args: Record<PropertyKey, never>;
         Returns: string;
+      };
+      get_invited_lists: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          id: number;
+          name: string;
+          notes: string;
+          contacts_count: number;
+          has_duplicates: boolean;
+        }[];
       };
       get_jsonb_param_value: {
         Args: {
@@ -1475,6 +1621,49 @@ export type Database = {
           default_value?: string;
         };
         Returns: string;
+      };
+      get_selected_invited_lists_detail: {
+        Args: {
+          selected_list_id: number;
+          items: number;
+          page: number;
+        };
+        Returns: {
+          id: number;
+          notes: string;
+          name: string;
+          appointments_count: number;
+          has_duplicates: boolean;
+          appointments: Json;
+        }[];
+      };
+      get_selected_invited_lists_detail_csv: {
+        Args: {
+          selected_list_id: number;
+        };
+        Returns: {
+          first_name: string;
+          last_name: string;
+          company_name: string;
+          link_accepted: string;
+          link_refused: string;
+          email: string;
+        }[];
+      };
+      get_selected_invited_lists_detail_new: {
+        Args: {
+          selected_list_id: number;
+          items: number;
+          page: number;
+        };
+        Returns: {
+          id: number;
+          notes: string;
+          name: string;
+          appointments_count: number;
+          has_duplicates: boolean;
+          appointments: Json;
+        }[];
       };
       insert_appointments_list: {
         Args: {
@@ -1502,6 +1691,7 @@ export type Database = {
           last_name: string;
           company_name: string;
           has_ticket: boolean;
+          email: string;
         }[];
       };
       search_cog: {
@@ -1539,20 +1729,7 @@ export type Database = {
         };
         Returns: Json;
       };
-      search_contacts_with_appointments_v2: {
-        Args: {
-          args: Json;
-        };
-        Returns: {
-          id: number;
-          contact_first_name: string;
-          contact_last_name: string;
-          contact_date_of_birth: string;
-          contact_status_id: number;
-          appointments: Json;
-        }[];
-      };
-      search_contacts_with_appointments_v3: {
+      search_contacts_with_appointments_test: {
         Args: {
           args: Json;
         };

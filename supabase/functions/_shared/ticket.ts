@@ -9,7 +9,6 @@ import { ITicketData } from "./types.ts";
 export const generate_ticket = async (
   ticketData: ITicketData
 ): Promise<Uint8Array> => {
-  console.log(ticketData);
   const doc = await PDFDocument.create();
   const page = doc.addPage();
   page.PDFFont = "Inter-Regular";

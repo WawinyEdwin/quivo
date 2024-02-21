@@ -76,14 +76,28 @@ export interface IAppointmentContact {
   };
 }
 
-
 export interface IEventMeta {
   status: string;
   event_id: number;
   appointment_id: number;
   action: string;
-  conferma?: string
+  conferma?: string;
   note?: string;
   appointment_email: number;
   email_sent?: boolean;
+}
+
+export interface IAppointment {
+  id: number;
+  contact: Contact;
+}
+
+export interface ITicket {
+  id: string;
+  appointment_id: number;
+  event: Event;
+  status: string;
+  entry: string;
+  created_at: string;
+  seat_id: string;
 }

@@ -39,13 +39,13 @@ async function handle_ticket_creation(
   return oldTicket.id;
 }
 
-async function handle_rsvp(req: Request): Promise<void> {
+const handle_rsvp = async (req: Request) => {
   const rsvp: IRsvp = await req.json();
 
   try {
     if (rsvp.appointment_uuid) {
       if (rsvp.job_title) {
-        update_appointment_by_uuid(rsvp.job_title, rsvp.appointment_uuid);
+        await update_appointment_by_uuid(rsvp.job_title, rsvp.appointment_uuid);
       }
       // const appointment = await get_appointment_by_uuid(appointment_uuid);
       // update_contacts(
@@ -65,7 +65,7 @@ async function handle_rsvp(req: Request): Promise<void> {
     const appointment = appointmentEmail.appointment;
 
     if (rsvp.date_of_birth) {
-      update_contacts(
+      await update_contacts(
         { date_of_birth: rsvp.date_of_birth },
         appointment.contact.id as number
       );
@@ -124,20 +124,21 @@ async function handle_rsvp(req: Request): Promise<void> {
           },
         ],
       });
-      update_appointment_meta(appointmentMeta.id, { email_sent: true });
+
+      await update_appointment_meta(appointmentMeta.id, { email_sent: true });
     }
   } catch (error) {
     console.log("Error on Ticket Generation:", error);
   }
-}
+};
 
-serve((req: Request) => {
+serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
 
   if (req.method === "POST") {
-    handle_rsvp(req);
+    await handle_rsvp(req);
     return new Response(
       JSON.stringify({
         message: "RSVP ticket is being generated and will be sent shortly",

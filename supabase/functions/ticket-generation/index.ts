@@ -25,7 +25,7 @@ serve(async (req) => {
           headers: {
             ...corsHeaders,
             "Content-Type": "application/pdf",
-            "Content-Disposition": `attachment; filename="${ticketData.ticket_id}.pdf"`,
+            "Content-Disposition": `attachment; filename="test.pdf"`,
           },
           status: 200,
         });

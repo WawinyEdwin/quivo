@@ -81,8 +81,85 @@ export type Database = {
             foreignKeyName: "appointment_email_appointment_id_fkey";
             columns: ["appointment_id"];
             isOneToOne: false;
+            referencedRelation: "alessandro_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_email_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_view";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_email_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_inticket_with_email_view";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "appointment_email_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_email_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta_for_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_email_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "appointment_email_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_checkin";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "appointment_email_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_seats";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "appointment_email_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
             referencedRelation: "appointments";
             referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "appointment_email_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "attendance_log_with_links";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "appointment_email_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "contatti_e_incarichi";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "appointment_email_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "liste_invitati_due";
+            referencedColumns: ["appointment_id"];
           },
           {
             foreignKeyName: "appointment_emails_workspace_id_fkey";
@@ -121,8 +198,85 @@ export type Database = {
             foreignKeyName: "appointment_list_appointment_id_fkey";
             columns: ["appointment_id"];
             isOneToOne: false;
+            referencedRelation: "alessandro_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_view";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_inticket_with_email_view";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta_for_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_checkin";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_seats";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
             referencedRelation: "appointments";
             referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "attendance_log_with_links";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "contatti_e_incarichi";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "liste_invitati_due";
+            referencedColumns: ["appointment_id"];
           },
           {
             foreignKeyName: "appointment_list_list_id_fkey";
@@ -133,6 +287,123 @@ export type Database = {
           },
           {
             foreignKeyName: "appointment_list_list_id_fkey";
+            columns: ["list_id"];
+            isOneToOne: false;
+            referencedRelation: "selected_invited_lists";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      appointment_list_bak20240309: {
+        Row: {
+          appointment_id: number | null;
+          id: number;
+          list_id: number | null;
+        };
+        Insert: {
+          appointment_id?: number | null;
+          id?: number;
+          list_id?: number | null;
+        };
+        Update: {
+          appointment_id?: number | null;
+          id?: number;
+          list_id?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_appointment_list_bak20240309_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_appointment_list_bak20240309_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_view";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_appointment_list_bak20240309_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_inticket_with_email_view";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "public_appointment_list_bak20240309_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_appointment_list_bak20240309_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta_for_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_appointment_list_bak20240309_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "public_appointment_list_bak20240309_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_checkin";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_appointment_list_bak20240309_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_seats";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "public_appointment_list_bak20240309_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "appointments";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_appointment_list_bak20240309_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "attendance_log_with_links";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_appointment_list_bak20240309_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "contatti_e_incarichi";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_appointment_list_bak20240309_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "liste_invitati_due";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_appointment_list_bak20240309_list_id_fkey";
+            columns: ["list_id"];
+            isOneToOne: false;
+            referencedRelation: "list";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_appointment_list_bak20240309_list_id_fkey";
             columns: ["list_id"];
             isOneToOne: false;
             referencedRelation: "selected_invited_lists";
@@ -170,8 +441,85 @@ export type Database = {
             foreignKeyName: "appointment_phones_appointment_id_fkey";
             columns: ["appointment_id"];
             isOneToOne: false;
+            referencedRelation: "alessandro_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_phones_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_view";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_phones_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_inticket_with_email_view";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "appointment_phones_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_phones_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta_for_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_phones_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "appointment_phones_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_checkin";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "appointment_phones_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_seats";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "appointment_phones_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
             referencedRelation: "appointments";
             referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "appointment_phones_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "attendance_log_with_links";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "appointment_phones_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "contatti_e_incarichi";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "appointment_phones_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "liste_invitati_due";
+            referencedColumns: ["appointment_id"];
           },
           {
             foreignKeyName: "appointment_phones_workspace_id_fkey";
@@ -251,6 +599,20 @@ export type Database = {
             referencedColumns: ["id"];
           },
           {
+            foreignKeyName: "appointments_cind_id_fkey";
+            columns: ["cind_id"];
+            isOneToOne: false;
+            referencedRelation: "event_attendance_log";
+            referencedColumns: ["cind_id"];
+          },
+          {
+            foreignKeyName: "appointments_cind_id_fkey";
+            columns: ["cind_id"];
+            isOneToOne: false;
+            referencedRelation: "event_attendance_log_live";
+            referencedColumns: ["cind_id"];
+          },
+          {
             foreignKeyName: "appointments_company_id_fkey";
             columns: ["company_id"];
             isOneToOne: false;
@@ -263,6 +625,34 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: "current_workspace_companies";
             referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "appointments_contact_id_fkey";
+            columns: ["contact_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_export";
+            referencedColumns: ["contact_id"];
+          },
+          {
+            foreignKeyName: "appointments_contact_id_fkey";
+            columns: ["contact_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_view";
+            referencedColumns: ["contact_id"];
+          },
+          {
+            foreignKeyName: "appointments_contact_id_fkey";
+            columns: ["contact_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta";
+            referencedColumns: ["contact_id"];
+          },
+          {
+            foreignKeyName: "appointments_contact_id_fkey";
+            columns: ["contact_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta_for_export";
+            referencedColumns: ["contact_id"];
           },
           {
             foreignKeyName: "appointments_contact_id_fkey";
@@ -282,7 +672,28 @@ export type Database = {
             foreignKeyName: "appointments_contact_id_fkey";
             columns: ["contact_id"];
             isOneToOne: false;
+            referencedRelation: "contatti_e_incarichi";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "appointments_contact_id_fkey";
+            columns: ["contact_id"];
+            isOneToOne: false;
             referencedRelation: "current_workspace_contacts";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "appointments_contact_id_fkey";
+            columns: ["contact_id"];
+            isOneToOne: false;
+            referencedRelation: "liste_invitati_due";
+            referencedColumns: ["contact_id"];
+          },
+          {
+            foreignKeyName: "appointments_contact_id_fkey";
+            columns: ["contact_id"];
+            isOneToOne: false;
+            referencedRelation: "simplified_view_contacts_with_appointments";
             referencedColumns: ["id"];
           },
           {
@@ -309,6 +720,54 @@ export type Database = {
         ];
       };
       appointments_bak20240224: {
+        Row: {
+          appointment_category_id: number | null;
+          cind_id: number | null;
+          company_id: number | null;
+          contact_id: number | null;
+          created_at: string | null;
+          external_code: string | null;
+          id: number | null;
+          job_office: string | null;
+          job_title: string | null;
+          job_title_category_id: number | null;
+          source: string | null;
+          uuid: string | null;
+          workspace_id: number | null;
+        };
+        Insert: {
+          appointment_category_id?: number | null;
+          cind_id?: number | null;
+          company_id?: number | null;
+          contact_id?: number | null;
+          created_at?: string | null;
+          external_code?: string | null;
+          id?: number | null;
+          job_office?: string | null;
+          job_title?: string | null;
+          job_title_category_id?: number | null;
+          source?: string | null;
+          uuid?: string | null;
+          workspace_id?: number | null;
+        };
+        Update: {
+          appointment_category_id?: number | null;
+          cind_id?: number | null;
+          company_id?: number | null;
+          contact_id?: number | null;
+          created_at?: string | null;
+          external_code?: string | null;
+          id?: number | null;
+          job_office?: string | null;
+          job_title?: string | null;
+          job_title_category_id?: number | null;
+          source?: string | null;
+          uuid?: string | null;
+          workspace_id?: number | null;
+        };
+        Relationships: [];
+      };
+      appointments_bak20240309: {
         Row: {
           appointment_category_id: number | null;
           cind_id: number | null;
@@ -427,6 +886,21 @@ export type Database = {
             referencedColumns: ["id"];
           }
         ];
+      };
+      bibbia: {
+        Row: {
+          id: number;
+          name: string | null;
+        };
+        Insert: {
+          id?: number;
+          name?: string | null;
+        };
+        Update: {
+          id?: number;
+          name?: string | null;
+        };
+        Relationships: [];
       };
       cinds: {
         Row: {
@@ -650,6 +1124,39 @@ export type Database = {
           }
         ];
       };
+      contact_bibbia: {
+        Row: {
+          bibbia_id: number | null;
+          contact_id: number | null;
+          id: number;
+        };
+        Insert: {
+          bibbia_id?: number | null;
+          contact_id?: number | null;
+          id?: number;
+        };
+        Update: {
+          bibbia_id?: number | null;
+          contact_id?: number | null;
+          id?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_contact_bibbia_bibbia_id_fkey";
+            columns: ["bibbia_id"];
+            isOneToOne: false;
+            referencedRelation: "bibbia";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_temp_bibbia_contact_id_fkey";
+            columns: ["contact_id"];
+            isOneToOne: false;
+            referencedRelation: "contacts_bup_8marzo";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
       contact_statuses: {
         Row: {
           created_at: string;
@@ -673,6 +1180,7 @@ export type Database = {
       };
       contacts: {
         Row: {
+          bibbia_id: number | null;
           contact_status_id: number | null;
           created_at: string;
           date_of_birth: string | null;
@@ -688,6 +1196,7 @@ export type Database = {
           workspace_id: number | null;
         };
         Insert: {
+          bibbia_id?: number | null;
           contact_status_id?: number | null;
           created_at?: string;
           date_of_birth?: string | null;
@@ -703,6 +1212,7 @@ export type Database = {
           workspace_id?: number | null;
         };
         Update: {
+          bibbia_id?: number | null;
           contact_status_id?: number | null;
           created_at?: string;
           date_of_birth?: string | null;
@@ -747,6 +1257,13 @@ export type Database = {
             referencedColumns: ["id"];
           },
           {
+            foreignKeyName: "contacts_personal_title_id_fkey";
+            columns: ["personal_title_id"];
+            isOneToOne: false;
+            referencedRelation: "simplified_view_contacts_with_appointments";
+            referencedColumns: ["personal_title_id"];
+          },
+          {
             foreignKeyName: "contacts_workspace_id_fkey";
             columns: ["workspace_id"];
             isOneToOne: false;
@@ -755,6 +1272,121 @@ export type Database = {
           },
           {
             foreignKeyName: "contacts_workspace_id_fkey";
+            columns: ["workspace_id"];
+            isOneToOne: false;
+            referencedRelation: "workspaces";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_contacts_bibbia_id_fkey";
+            columns: ["bibbia_id"];
+            isOneToOne: false;
+            referencedRelation: "bibbia";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      contacts_bup_8marzo: {
+        Row: {
+          bibbia_id: number | null;
+          contact_status_id: number | null;
+          created_at: string;
+          date_of_birth: string | null;
+          external_code: string | null;
+          first_name: string | null;
+          gender: string | null;
+          id: number;
+          last_name: string | null;
+          personal_email: string | null;
+          personal_title: string | null;
+          personal_title_id: number | null;
+          source: string | null;
+          workspace_id: number | null;
+        };
+        Insert: {
+          bibbia_id?: number | null;
+          contact_status_id?: number | null;
+          created_at?: string;
+          date_of_birth?: string | null;
+          external_code?: string | null;
+          first_name?: string | null;
+          gender?: string | null;
+          id?: number;
+          last_name?: string | null;
+          personal_email?: string | null;
+          personal_title?: string | null;
+          personal_title_id?: number | null;
+          source?: string | null;
+          workspace_id?: number | null;
+        };
+        Update: {
+          bibbia_id?: number | null;
+          contact_status_id?: number | null;
+          created_at?: string;
+          date_of_birth?: string | null;
+          external_code?: string | null;
+          first_name?: string | null;
+          gender?: string | null;
+          id?: number;
+          last_name?: string | null;
+          personal_email?: string | null;
+          personal_title?: string | null;
+          personal_title_id?: number | null;
+          source?: string | null;
+          workspace_id?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_contacts_bup_8marzo_bibbia_id_fkey";
+            columns: ["bibbia_id"];
+            isOneToOne: false;
+            referencedRelation: "bibbia";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_contacts_bup_8marzo_contact_status_id_fkey";
+            columns: ["contact_status_id"];
+            isOneToOne: false;
+            referencedRelation: "contact_statuses";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_contacts_bup_8marzo_contact_status_id_fkey";
+            columns: ["contact_status_id"];
+            isOneToOne: false;
+            referencedRelation: "contacts_with_appointments";
+            referencedColumns: ["contact_status_id"];
+          },
+          {
+            foreignKeyName: "public_contacts_bup_8marzo_personal_title_id_fkey";
+            columns: ["personal_title_id"];
+            isOneToOne: false;
+            referencedRelation: "contacts_with_appointments";
+            referencedColumns: ["personal_title_id"];
+          },
+          {
+            foreignKeyName: "public_contacts_bup_8marzo_personal_title_id_fkey";
+            columns: ["personal_title_id"];
+            isOneToOne: false;
+            referencedRelation: "personal_titles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_contacts_bup_8marzo_personal_title_id_fkey";
+            columns: ["personal_title_id"];
+            isOneToOne: false;
+            referencedRelation: "simplified_view_contacts_with_appointments";
+            referencedColumns: ["personal_title_id"];
+          },
+          {
+            foreignKeyName: "public_contacts_bup_8marzo_workspace_id_fkey";
+            columns: ["workspace_id"];
+            isOneToOne: false;
+            referencedRelation: "workspace_members_view";
+            referencedColumns: ["workspace_id"];
+          },
+          {
+            foreignKeyName: "public_contacts_bup_8marzo_workspace_id_fkey";
             columns: ["workspace_id"];
             isOneToOne: false;
             referencedRelation: "workspaces";
@@ -853,8 +1485,85 @@ export type Database = {
             foreignKeyName: "event_appointment_meta_appointment_id_fkey";
             columns: ["appointment_id"];
             isOneToOne: false;
+            referencedRelation: "alessandro_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_view";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_inticket_with_email_view";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta_for_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_checkin";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_seats";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
             referencedRelation: "appointments";
             referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "attendance_log_with_links";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "contatti_e_incarichi";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "liste_invitati_due";
+            referencedColumns: ["appointment_id"];
           },
           {
             foreignKeyName: "event_appointment_meta_event_id_fkey";
@@ -864,6 +1573,462 @@ export type Database = {
             referencedColumns: ["id"];
           }
         ];
+      };
+      event_appointment_meta_ASSEMBLEA: {
+        Row: {
+          action: string | null;
+          appointment_email: number | null;
+          appointment_id: number | null;
+          conferma: string | null;
+          created_at: string;
+          email_sent: boolean | null;
+          event_id: number | null;
+          id: number;
+          note: string | null;
+          status: string | null;
+        };
+        Insert: {
+          action?: string | null;
+          appointment_email?: number | null;
+          appointment_id?: number | null;
+          conferma?: string | null;
+          created_at?: string;
+          email_sent?: boolean | null;
+          event_id?: number | null;
+          id?: number;
+          note?: string | null;
+          status?: string | null;
+        };
+        Update: {
+          action?: string | null;
+          appointment_email?: number | null;
+          appointment_id?: number | null;
+          conferma?: string | null;
+          created_at?: string;
+          email_sent?: boolean | null;
+          event_id?: number | null;
+          id?: number;
+          note?: string | null;
+          status?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_event_appointment_meta_ASSEMBLEA_appointment_email_fkey";
+            columns: ["appointment_email"];
+            isOneToOne: false;
+            referencedRelation: "appointment_emails";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_view";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_inticket_with_email_view";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta_for_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_checkin";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_seats";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "appointments";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "attendance_log_with_links";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "contatti_e_incarichi";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "liste_invitati_due";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_ASSEMBLEA_event_id_fkey";
+            columns: ["event_id"];
+            isOneToOne: false;
+            referencedRelation: "event";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      event_appointment_meta_bak20240310: {
+        Row: {
+          action: string | null;
+          appointment_email: number | null;
+          appointment_id: number | null;
+          conferma: string | null;
+          created_at: string;
+          email_sent: boolean | null;
+          event_id: number | null;
+          id: number;
+          note: string | null;
+          status: string | null;
+        };
+        Insert: {
+          action?: string | null;
+          appointment_email?: number | null;
+          appointment_id?: number | null;
+          conferma?: string | null;
+          created_at?: string;
+          email_sent?: boolean | null;
+          event_id?: number | null;
+          id?: number;
+          note?: string | null;
+          status?: string | null;
+        };
+        Update: {
+          action?: string | null;
+          appointment_email?: number | null;
+          appointment_id?: number | null;
+          conferma?: string | null;
+          created_at?: string;
+          email_sent?: boolean | null;
+          event_id?: number | null;
+          id?: number;
+          note?: string | null;
+          status?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20240310_appointment_email_fke";
+            columns: ["appointment_email"];
+            isOneToOne: false;
+            referencedRelation: "appointment_emails";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20240310_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20240310_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_view";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20240310_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_inticket_with_email_view";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20240310_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20240310_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta_for_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20240310_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20240310_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_checkin";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20240310_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_seats";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20240310_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "appointments";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20240310_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "attendance_log_with_links";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20240310_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "contatti_e_incarichi";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20240310_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "liste_invitati_due";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20240310_event_id_fkey";
+            columns: ["event_id"];
+            isOneToOne: false;
+            referencedRelation: "event";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      event_appointment_meta_bak20241003_1700: {
+        Row: {
+          action: string | null;
+          appointment_email: number | null;
+          appointment_id: number | null;
+          conferma: string | null;
+          created_at: string;
+          email_sent: boolean | null;
+          event_id: number | null;
+          id: number;
+          note: string | null;
+          status: string | null;
+        };
+        Insert: {
+          action?: string | null;
+          appointment_email?: number | null;
+          appointment_id?: number | null;
+          conferma?: string | null;
+          created_at?: string;
+          email_sent?: boolean | null;
+          event_id?: number | null;
+          id?: number;
+          note?: string | null;
+          status?: string | null;
+        };
+        Update: {
+          action?: string | null;
+          appointment_email?: number | null;
+          appointment_id?: number | null;
+          conferma?: string | null;
+          created_at?: string;
+          email_sent?: boolean | null;
+          event_id?: number | null;
+          id?: number;
+          note?: string | null;
+          status?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20241003_1700_appointment_emai";
+            columns: ["appointment_email"];
+            isOneToOne: false;
+            referencedRelation: "appointment_emails";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20241003_1700_appointment_id_f";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20241003_1700_appointment_id_f";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_view";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20241003_1700_appointment_id_f";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_inticket_with_email_view";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20241003_1700_appointment_id_f";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20241003_1700_appointment_id_f";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta_for_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20241003_1700_appointment_id_f";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20241003_1700_appointment_id_f";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_checkin";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20241003_1700_appointment_id_f";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_seats";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20241003_1700_appointment_id_f";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "appointments";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20241003_1700_appointment_id_f";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "attendance_log_with_links";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20241003_1700_appointment_id_f";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "contatti_e_incarichi";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20241003_1700_appointment_id_f";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "liste_invitati_due";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_event_appointment_meta_bak20241003_1700_event_id_fkey";
+            columns: ["event_id"];
+            isOneToOne: false;
+            referencedRelation: "event";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      event_ASSEMBLEA: {
+        Row: {
+          created_at: string | null;
+          date_end: string | null;
+          date_start: string | null;
+          description: string | null;
+          id: number;
+          location_address: string | null;
+          location_name: string | null;
+          name: string | null;
+          path: string | null;
+          slug: string | null;
+          status: string | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          date_end?: string | null;
+          date_start?: string | null;
+          description?: string | null;
+          id?: number;
+          location_address?: string | null;
+          location_name?: string | null;
+          name?: string | null;
+          path?: string | null;
+          slug?: string | null;
+          status?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          date_end?: string | null;
+          date_start?: string | null;
+          description?: string | null;
+          id?: number;
+          location_address?: string | null;
+          location_name?: string | null;
+          name?: string | null;
+          path?: string | null;
+          slug?: string | null;
+          status?: string | null;
+        };
+        Relationships: [];
       };
       event_list: {
         Row: {
@@ -898,6 +2063,79 @@ export type Database = {
             columns: ["list_id"];
             isOneToOne: false;
             referencedRelation: "selected_invited_lists";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      event_timeslot: {
+        Row: {
+          created_at: string | null;
+          date: string | null;
+          description_HTML: string | null;
+          event_id: number | null;
+          id: number;
+          location_name: string | null;
+          public: boolean;
+          slug: string | null;
+          status: string | null;
+          time_end: string | null;
+          time_start: string | null;
+          title_email: string | null;
+          title_slot: string | null;
+          workspace_id: number | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          date?: string | null;
+          description_HTML?: string | null;
+          event_id?: number | null;
+          id?: number;
+          location_name?: string | null;
+          public?: boolean;
+          slug?: string | null;
+          status?: string | null;
+          time_end?: string | null;
+          time_start?: string | null;
+          title_email?: string | null;
+          title_slot?: string | null;
+          workspace_id?: number | null;
+        };
+        Update: {
+          created_at?: string | null;
+          date?: string | null;
+          description_HTML?: string | null;
+          event_id?: number | null;
+          id?: number;
+          location_name?: string | null;
+          public?: boolean;
+          slug?: string | null;
+          status?: string | null;
+          time_end?: string | null;
+          time_start?: string | null;
+          title_email?: string | null;
+          title_slot?: string | null;
+          workspace_id?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_event_timeslot_event_id_fkey";
+            columns: ["event_id"];
+            isOneToOne: false;
+            referencedRelation: "event";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_event_timeslot_workspace_id_fkey";
+            columns: ["workspace_id"];
+            isOneToOne: false;
+            referencedRelation: "workspace_members_view";
+            referencedColumns: ["workspace_id"];
+          },
+          {
+            foreignKeyName: "public_event_timeslot_workspace_id_fkey";
+            columns: ["workspace_id"];
+            isOneToOne: false;
+            referencedRelation: "workspaces";
             referencedColumns: ["id"];
           }
         ];
@@ -1120,10 +2358,120 @@ export type Database = {
             foreignKeyName: "seat_appointment_id_fkey";
             columns: ["appointment_id"];
             isOneToOne: false;
+            referencedRelation: "alessandro_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "seat_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_view";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "seat_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_inticket_with_email_view";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "seat_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "seat_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta_for_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "seat_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "seat_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_checkin";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "seat_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_seats";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "seat_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
             referencedRelation: "appointments";
             referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "seat_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "attendance_log_with_links";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "seat_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "contatti_e_incarichi";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "seat_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "liste_invitati_due";
+            referencedColumns: ["appointment_id"];
           }
         ];
+      };
+      temp: {
+        Row: {
+          appointment_category_id: number | null;
+          contact_id: number | null;
+        };
+        Insert: {
+          appointment_category_id?: number | null;
+          contact_id?: number | null;
+        };
+        Update: {
+          appointment_category_id?: number | null;
+          contact_id?: number | null;
+        };
+        Relationships: [];
+      };
+      temp_color: {
+        Row: {
+          color_id: number | null;
+          created_at: string;
+          id: number;
+        };
+        Insert: {
+          color_id?: number | null;
+          created_at?: string;
+          id?: number;
+        };
+        Update: {
+          color_id?: number | null;
+          created_at?: string;
+          id?: number;
+        };
+        Relationships: [];
       };
       ticket: {
         Row: {
@@ -1133,6 +2481,7 @@ export type Database = {
           event_id: number | null;
           id: string;
           seat_id: number | null;
+          show: boolean | null;
           status: string | null;
         };
         Insert: {
@@ -1142,6 +2491,7 @@ export type Database = {
           event_id?: number | null;
           id?: string;
           seat_id?: number | null;
+          show?: boolean | null;
           status?: string | null;
         };
         Update: {
@@ -1151,9 +2501,66 @@ export type Database = {
           event_id?: number | null;
           id?: string;
           seat_id?: number | null;
+          show?: boolean | null;
           status?: string | null;
         };
         Relationships: [
+          {
+            foreignKeyName: "public_ticket_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_ticket_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_view";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_ticket_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_inticket_with_email_view";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "public_ticket_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_ticket_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta_for_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_ticket_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "public_ticket_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_checkin";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_ticket_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_seats";
+            referencedColumns: ["appo_id"];
+          },
           {
             foreignKeyName: "public_ticket_appointment_id_fkey";
             columns: ["appointment_id"];
@@ -1162,20 +2569,275 @@ export type Database = {
             referencedColumns: ["id"];
           },
           {
+            foreignKeyName: "public_ticket_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "attendance_log_with_links";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_ticket_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "contatti_e_incarichi";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_ticket_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "liste_invitati_due";
+            referencedColumns: ["appointment_id"];
+          },
+          {
             foreignKeyName: "public_ticket_event_id_fkey";
             columns: ["event_id"];
             isOneToOne: false;
             referencedRelation: "event";
             referencedColumns: ["id"];
+          }
+        ];
+      };
+      ticket_ASSEMBLEA: {
+        Row: {
+          appointment_id: number | null;
+          created_at: string | null;
+          entry: string | null;
+          event_id: number | null;
+          id: string;
+          seat_id: number | null;
+          show: boolean | null;
+          status: string | null;
+        };
+        Insert: {
+          appointment_id?: number | null;
+          created_at?: string | null;
+          entry?: string | null;
+          event_id?: number | null;
+          id?: string;
+          seat_id?: number | null;
+          show?: boolean | null;
+          status?: string | null;
+        };
+        Update: {
+          appointment_id?: number | null;
+          created_at?: string | null;
+          entry?: string | null;
+          event_id?: number | null;
+          id?: string;
+          seat_id?: number | null;
+          show?: boolean | null;
+          status?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_ticket_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_export";
+            referencedColumns: ["app_id"];
           },
           {
-            foreignKeyName: "ticket_seat_id_fkey";
-            columns: ["seat_id"];
+            foreignKeyName: "public_ticket_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
             isOneToOne: false;
-            referencedRelation: "seat";
+            referencedRelation: "alessandro_view";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_ticket_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_inticket_with_email_view";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "public_ticket_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_ticket_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta_for_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "public_ticket_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "public_ticket_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_checkin";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_ticket_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_seats";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "public_ticket_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "appointments";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_ticket_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "attendance_log_with_links";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_ticket_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "contatti_e_incarichi";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_ticket_ASSEMBLEA_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "liste_invitati_due";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "public_ticket_ASSEMBLEA_event_id_fkey";
+            columns: ["event_id"];
+            isOneToOne: false;
+            referencedRelation: "event";
             referencedColumns: ["id"];
           }
         ];
+      };
+      ticket_timeslot: {
+        Row: {
+          created_at: string;
+          event_timeslot_id: number | null;
+          id: number;
+          ticket_id: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          event_timeslot_id?: number | null;
+          id?: number;
+          ticket_id?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          event_timeslot_id?: number | null;
+          id?: number;
+          ticket_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "public_ticket_timeslot_event_timeslot_id_fkey";
+            columns: ["event_timeslot_id"];
+            isOneToOne: false;
+            referencedRelation: "event_timeslot";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_ticket_timeslot_ticket_id_fkey";
+            columns: ["ticket_id"];
+            isOneToOne: false;
+            referencedRelation: "all_appointments_view";
+            referencedColumns: ["ticket_code"];
+          },
+          {
+            foreignKeyName: "public_ticket_timeslot_ticket_id_fkey";
+            columns: ["ticket_id"];
+            isOneToOne: false;
+            referencedRelation: "all_appointments_with_email_view";
+            referencedColumns: ["ticket_code"];
+          },
+          {
+            foreignKeyName: "public_ticket_timeslot_ticket_id_fkey";
+            columns: ["ticket_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_checkin";
+            referencedColumns: ["ticket_uuid"];
+          },
+          {
+            foreignKeyName: "public_ticket_timeslot_ticket_id_fkey";
+            columns: ["ticket_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_with_entry";
+            referencedColumns: ["ticket_code"];
+          },
+          {
+            foreignKeyName: "public_ticket_timeslot_ticket_id_fkey";
+            columns: ["ticket_id"];
+            isOneToOne: false;
+            referencedRelation: "event_ticket_view";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_ticket_timeslot_ticket_id_fkey";
+            columns: ["ticket_id"];
+            isOneToOne: false;
+            referencedRelation: "liveticket";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_ticket_timeslot_ticket_id_fkey";
+            columns: ["ticket_id"];
+            isOneToOne: false;
+            referencedRelation: "liveticket2";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_ticket_timeslot_ticket_id_fkey";
+            columns: ["ticket_id"];
+            isOneToOne: false;
+            referencedRelation: "ticket";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "public_ticket_timeslot_ticket_id_fkey";
+            columns: ["ticket_id"];
+            isOneToOne: false;
+            referencedRelation: "ticket_to_hide";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      "ticket-extra": {
+        Row: {
+          created_at: string;
+          description: string | null;
+          entry: string | null;
+          full_name: string | null;
+          id: number;
+        };
+        Insert: {
+          created_at?: string;
+          description?: string | null;
+          entry?: string | null;
+          full_name?: string | null;
+          id?: number;
+        };
+        Update: {
+          created_at?: string;
+          description?: string | null;
+          entry?: string | null;
+          full_name?: string | null;
+          id?: number;
+        };
+        Relationships: [];
       };
       user_meta: {
         Row: {
@@ -1365,6 +3027,327 @@ export type Database = {
       };
     };
     Views: {
+      alessandro_export: {
+        Row: {
+          app_id: number | null;
+          bibbia: string | null;
+          contact_id: number | null;
+          created_at: string | null;
+          first_name: string | null;
+          last_name: string | null;
+          meta_action: string | null;
+          rn: number | null;
+        };
+        Relationships: [];
+      };
+      alessandro_view: {
+        Row: {
+          app_id: number | null;
+          bibbia: string | null;
+          contact_id: number | null;
+          created_at: string | null;
+          first_name: string | null;
+          last_name: string | null;
+          meta_action: string | null;
+        };
+        Relationships: [];
+      };
+      all_appointments_view: {
+        Row: {
+          accept_link: string | null;
+          cind: string | null;
+          company: string | null;
+          email_uuid: string | null;
+          external_code: string | null;
+          first_name: string | null;
+          job_title: string | null;
+          last_name: string | null;
+          list_name: string | null;
+          logged_action: string | null;
+          refuse_link: string | null;
+          ticket_code: string | null;
+        };
+        Relationships: [];
+      };
+      all_appointments_with_email_view: {
+        Row: {
+          accept_link: string | null;
+          cind: string | null;
+          company: string | null;
+          email: string | null;
+          email_uuid: string | null;
+          external_code: string | null;
+          first_name: string | null;
+          job_title: string | null;
+          last_name: string | null;
+          list_name: string | null;
+          logged_action: string | null;
+          refuse_link: string | null;
+          ticket_code: string | null;
+        };
+        Relationships: [];
+      };
+      all_guest_inticket_with_email_view: {
+        Row: {
+          appo_id: number | null;
+          bibbia: string | null;
+          categoria: string | null;
+          cognome: string | null;
+          email: string | null;
+          job_title: string | null;
+          last_action: string | null;
+          nome: string | null;
+          presso: string | null;
+        };
+        Relationships: [];
+      };
+      all_guest_meta: {
+        Row: {
+          app_id: number | null;
+          bibbia: string | null;
+          carica: string | null;
+          categoria: string | null;
+          cognome: string | null;
+          contact_id: number | null;
+          created_at: string | null;
+          meta_action: string | null;
+          nome: string | null;
+          presso: string | null;
+        };
+        Relationships: [];
+      };
+      all_guest_meta_for_export: {
+        Row: {
+          app_id: number | null;
+          bibbia: string | null;
+          carica: string | null;
+          categoria: string | null;
+          cognome: string | null;
+          contact_id: number | null;
+          created_at: string | null;
+          meta_action: string | null;
+          nome: string | null;
+          presso: string | null;
+          rn: number | null;
+        };
+        Relationships: [];
+      };
+      all_guest_tickets: {
+        Row: {
+          appo_id: number | null;
+          bibbia: string | null;
+          categoria: string | null;
+          cognome: string | null;
+          job_title: string | null;
+          last_action: string | null;
+          nome: string | null;
+          presso: string | null;
+          rn: number | null;
+        };
+        Relationships: [];
+      };
+      all_guest_tickets_checkin: {
+        Row: {
+          appointment_id: number | null;
+          bibbia: string | null;
+          carica: string | null;
+          categoria: string | null;
+          ckeckin: string | null;
+          cognome: string | null;
+          created_at: string | null;
+          fila: string | null;
+          last_action: string | null;
+          nome: string | null;
+          posto: string | null;
+          presso: string | null;
+          rn: number | null;
+          settore: string | null;
+          ticket_uuid: string | null;
+        };
+        Relationships: [];
+      };
+      all_guest_tickets_seats: {
+        Row: {
+          appo_id: number | null;
+          bibbia: string | null;
+          categoria: string | null;
+          cognome: string | null;
+          job_title: string | null;
+          last_action: string | null;
+          nome: string | null;
+          presso: string | null;
+          rn: number | null;
+          row: string | null;
+          seat: string | null;
+          sector: string | null;
+        };
+        Relationships: [];
+      };
+      all_guest_tickets_with_entry: {
+        Row: {
+          accept_link: string | null;
+          cind: string | null;
+          company: string | null;
+          email_uuid: string | null;
+          entry: string | null;
+          external_code: string | null;
+          first_name: string | null;
+          job_title: string | null;
+          last_name: string | null;
+          list_name: string | null;
+          logged_action: string | null;
+          refuse_link: string | null;
+          ticket_code: string | null;
+        };
+        Relationships: [];
+      };
+      appointment_list_view: {
+        Row: {
+          appointment_id: number | null;
+          id: number | null;
+          list_id: number | null;
+        };
+        Insert: {
+          appointment_id?: number | null;
+          id?: number | null;
+          list_id?: number | null;
+        };
+        Update: {
+          appointment_id?: number | null;
+          id?: number | null;
+          list_id?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "appointments";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_view";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_inticket_with_email_view";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta_for_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_checkin";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_seats";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "attendance_log_with_links";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "contatti_e_incarichi";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "liste_invitati_due";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_list_id_fkey";
+            columns: ["list_id"];
+            isOneToOne: false;
+            referencedRelation: "list";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "appointment_list_list_id_fkey";
+            columns: ["list_id"];
+            isOneToOne: false;
+            referencedRelation: "selected_invited_lists";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      attendance_log_with_links: {
+        Row: {
+          accept_link: string | null;
+          action: string | null;
+          appointment_id: number | null;
+          cind_name: string | null;
+          city: string | null;
+          company_name: string | null;
+          email: string | null;
+          first_name: string | null;
+          job_title: string | null;
+          last_name: string | null;
+          refuse_link: string | null;
+          region: string | null;
+          ticket_id: string | null;
+        };
+        Relationships: [];
+      };
+      confermati_non_seduti: {
+        Row: {
+          bibbia: string | null;
+          carica: string | null;
+          cognome: string | null;
+          colore: string | null;
+          lettera: string | null;
+          nome: string | null;
+          presso: string | null;
+        };
+        Relationships: [];
+      };
       contacts_with_appointments: {
         Row: {
           appointment_details: Json | null;
@@ -1392,6 +3375,32 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: "workspace_members_view";
             referencedColumns: ["workspace_id"];
+          }
+        ];
+      };
+      contatti_e_incarichi: {
+        Row: {
+          appointment_category_id: number | null;
+          appointment_id: number | null;
+          associative_status: string | null;
+          cind_name: string | null;
+          company_external_code: string | null;
+          company_name: string | null;
+          contact_external_code: string | null;
+          contact_source: string | null;
+          first_name: string | null;
+          id: number | null;
+          job_title: string | null;
+          last_name: string | null;
+          logged_action: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "appointments_appointment_category_id_fkey";
+            columns: ["appointment_category_id"];
+            isOneToOne: false;
+            referencedRelation: "appointment_categories";
+            referencedColumns: ["id"];
           }
         ];
       };
@@ -1461,14 +3470,23 @@ export type Database = {
         Row: {
           appointment_email: string | null;
           appointment_id: number | null;
+          cind_id: number | null;
+          cind_name: string | null;
+          city: string | null;
+          company_name: string | null;
           conferma: string | null;
           created_at: string | null;
           event_id: number | null;
           first_name: string | null;
           id: number | null;
+          job_title: string | null;
           last_name: string | null;
+          link_accepted: string | null;
+          link_refused: string | null;
           logged_action: string | null;
           note: string | null;
+          region: string | null;
+          state: string | null;
           status: string | null;
         };
         Relationships: [
@@ -1480,10 +3498,684 @@ export type Database = {
             referencedColumns: ["id"];
           },
           {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_view";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_inticket_with_email_view";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta_for_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_checkin";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_seats";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "attendance_log_with_links";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "contatti_e_incarichi";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "liste_invitati_due";
+            referencedColumns: ["appointment_id"];
+          },
+          {
             foreignKeyName: "event_appointment_meta_event_id_fkey";
             columns: ["event_id"];
             isOneToOne: false;
             referencedRelation: "event";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      event_attendance_log_link: {
+        Row: {
+          appointment_email: string | null;
+          appointment_id: number | null;
+          city: string | null;
+          company_name: string | null;
+          conferma: string | null;
+          created_at: string | null;
+          event_id: number | null;
+          first_name: string | null;
+          id: number | null;
+          job_title: string | null;
+          last_name: string | null;
+          link_accepted: string | null;
+          link_refused: string | null;
+          logged_action: string | null;
+          note: string | null;
+          region: string | null;
+          state: string | null;
+          status: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "appointments";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_view";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_inticket_with_email_view";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta_for_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_checkin";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_seats";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "attendance_log_with_links";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "contatti_e_incarichi";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "liste_invitati_due";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_event_id_fkey";
+            columns: ["event_id"];
+            isOneToOne: false;
+            referencedRelation: "event";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      event_attendance_log_live: {
+        Row: {
+          appointment_email: string | null;
+          appointment_id: number | null;
+          bibbia: string | null;
+          cind_id: number | null;
+          cind_name: string | null;
+          city: string | null;
+          company_name: string | null;
+          conferma: string | null;
+          created_at: string | null;
+          event_id: number | null;
+          first_name: string | null;
+          id: number | null;
+          job_title: string | null;
+          last_name: string | null;
+          link_accepted: string | null;
+          link_refused: string | null;
+          logged_action: string | null;
+          note: string | null;
+          region: string | null;
+          state: string | null;
+          status: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "appointments";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_view";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_inticket_with_email_view";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta_for_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_checkin";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_seats";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "attendance_log_with_links";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "contatti_e_incarichi";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "liste_invitati_due";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_event_id_fkey";
+            columns: ["event_id"];
+            isOneToOne: false;
+            referencedRelation: "event";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      event_attendance_log_new: {
+        Row: {
+          appointment_email: string | null;
+          appointment_id: number | null;
+          city: string | null;
+          company_name: string | null;
+          conferma: string | null;
+          created_at: string | null;
+          event_id: number | null;
+          first_name: string | null;
+          id: number | null;
+          job_title: string | null;
+          last_name: string | null;
+          logged_action: string | null;
+          note: string | null;
+          region: string | null;
+          state: string | null;
+          status: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "appointments";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_view";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_inticket_with_email_view";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta_for_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_checkin";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_seats";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "attendance_log_with_links";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "contatti_e_incarichi";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "liste_invitati_due";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "event_appointment_meta_event_id_fkey";
+            columns: ["event_id"];
+            isOneToOne: false;
+            referencedRelation: "event";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      event_ticket_view: {
+        Row: {
+          created_at: string | null;
+          first_name: string | null;
+          id: string | null;
+          job_title: string | null;
+          last_name: string | null;
+          name: string | null;
+          seat: string | null;
+          seat_row: string | null;
+          seat_sector: string | null;
+        };
+        Relationships: [];
+      };
+      guest_list_view: {
+        Row: {
+          appointment_id: number | null;
+          id: number | null;
+          list_id: number | null;
+        };
+        Insert: {
+          appointment_id?: number | null;
+          id?: number | null;
+          list_id?: number | null;
+        };
+        Update: {
+          appointment_id?: number | null;
+          id?: number | null;
+          list_id?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "appointments";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "alessandro_view";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_inticket_with_email_view";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_meta_for_export";
+            referencedColumns: ["app_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_checkin";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "all_guest_tickets_seats";
+            referencedColumns: ["appo_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "attendance_log_with_links";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "contatti_e_incarichi";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_appointment_id_fkey";
+            columns: ["appointment_id"];
+            isOneToOne: false;
+            referencedRelation: "liste_invitati_due";
+            referencedColumns: ["appointment_id"];
+          },
+          {
+            foreignKeyName: "appointment_list_list_id_fkey";
+            columns: ["list_id"];
+            isOneToOne: false;
+            referencedRelation: "list";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "appointment_list_list_id_fkey";
+            columns: ["list_id"];
+            isOneToOne: false;
+            referencedRelation: "selected_invited_lists";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      liste_invitati: {
+        Row: {
+          accept_link: string | null;
+          appointment_creation_date: string | null;
+          appointment_emails_uuid: string | null;
+          cind: string | null;
+          company: string | null;
+          contact_creation_date: string | null;
+          external_code: string | null;
+          first_name: string | null;
+          job_title: string | null;
+          last_name: string | null;
+          list_id: number | null;
+          list_name: string | null;
+          refuse_link: string | null;
+          source: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "appointment_list_list_id_fkey";
+            columns: ["list_id"];
+            isOneToOne: false;
+            referencedRelation: "list";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "appointment_list_list_id_fkey";
+            columns: ["list_id"];
+            isOneToOne: false;
+            referencedRelation: "selected_invited_lists";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      liste_invitati_due: {
+        Row: {
+          accept_link: string | null;
+          appointment_creation_date: string | null;
+          appointment_emails_uuid: string | null;
+          appointment_id: number | null;
+          bibbia_name: string | null;
+          company: string | null;
+          contact_creation_date: string | null;
+          contact_external_code: string | null;
+          contact_id: number | null;
+          first_name: string | null;
+          job_title: string | null;
+          last_name: string | null;
+          list_id: number | null;
+          list_name: string | null;
+          logged_action: string | null;
+          refuse_link: string | null;
+          source: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "appointment_list_list_id_fkey";
+            columns: ["list_id"];
+            isOneToOne: false;
+            referencedRelation: "list";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "appointment_list_list_id_fkey";
+            columns: ["list_id"];
+            isOneToOne: false;
+            referencedRelation: "selected_invited_lists";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      liveticket: {
+        Row: {
+          appointment_category_id: number | null;
+          created_at: string | null;
+          entry: string | null;
+          first_name: string | null;
+          id: string | null;
+          job_title: string | null;
+          last_name: string | null;
+          name: string | null;
+          seat: string | null;
+          seat_row: string | null;
+          seat_sector: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "appointments_appointment_category_id_fkey";
+            columns: ["appointment_category_id"];
+            isOneToOne: false;
+            referencedRelation: "appointment_categories";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      liveticket2: {
+        Row: {
+          appointment_category_id: number | null;
+          created_at: string | null;
+          entry: string | null;
+          first_name: string | null;
+          id: string | null;
+          job_title: string | null;
+          last_name: string | null;
+          name: string | null;
+          seat: string | null;
+          seat_row: string | null;
+          seat_sector: string | null;
+          show: boolean | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "appointments_appointment_category_id_fkey";
+            columns: ["appointment_category_id"];
+            isOneToOne: false;
+            referencedRelation: "appointment_categories";
             referencedColumns: ["id"];
           }
         ];
@@ -1498,6 +4190,55 @@ export type Database = {
           last_name: string | null;
           list_name: string | null;
           name: string | null;
+        };
+        Relationships: [];
+      };
+      simplified_view_contacts_with_appointments: {
+        Row: {
+          appointments: Json | null;
+          bibbia_id: number | null;
+          bibbia_name: string | null;
+          date_of_birth: string | null;
+          first_name: string | null;
+          id: number | null;
+          last_name: string | null;
+          personal_title_id: number | null;
+          workspace_id: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "contacts_workspace_id_fkey";
+            columns: ["workspace_id"];
+            isOneToOne: false;
+            referencedRelation: "workspaces";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "contacts_workspace_id_fkey";
+            columns: ["workspace_id"];
+            isOneToOne: false;
+            referencedRelation: "workspace_members_view";
+            referencedColumns: ["workspace_id"];
+          },
+          {
+            foreignKeyName: "public_contacts_bibbia_id_fkey";
+            columns: ["bibbia_id"];
+            isOneToOne: false;
+            referencedRelation: "bibbia";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      ticket_to_hide: {
+        Row: {
+          first_name: string | null;
+          id: string | null;
+          job_title: string | null;
+          name: string | null;
+          row: string | null;
+          seat: string | null;
+          sector: string | null;
+          upper: string | null;
         };
         Relationships: [];
       };
@@ -1524,6 +4265,158 @@ export type Database = {
       };
     };
     Functions: {
+      cancel_connection: {
+        Args: {
+          connection_id: string;
+          updated_by: string;
+        };
+        Returns: Json;
+      };
+      check_ticket: {
+        Args: {
+          event_id: number;
+          appointment_ids: number[];
+        };
+        Returns: Json;
+      };
+      check_ticket_exist: {
+        Args: {
+          appointment_id_input: number;
+        };
+        Returns: {
+          appointment_id: number | null;
+          created_at: string | null;
+          entry: string | null;
+          event_id: number | null;
+          id: string;
+          seat_id: number | null;
+          show: boolean | null;
+          status: string | null;
+        }[];
+      };
+      checkin: {
+        Args: {
+          appointment_id_input: number;
+        };
+        Returns: string;
+      };
+      confermatinonsedutipercategoria: {
+        Args: {
+          letter_input: string;
+        };
+        Returns: {
+          app_id: number;
+          cognome: string;
+          nome: string;
+          carica: string;
+          azienda: string;
+          categoria: string;
+          lettera: string;
+          bibbia: string;
+          conferma: string;
+          note: string;
+          colore: string;
+        }[];
+      };
+      confirmed_not_seated_bycat: {
+        Args: {
+          letter_input: string;
+        };
+        Returns: {
+          app_id: number;
+          cognome: string;
+          nome: string;
+          carica: string;
+          azienda: string;
+          colore: string;
+          categoria: string;
+          lettera: string;
+          cind: string;
+          fila: string;
+          posto: string;
+          settore: string;
+          flag: string;
+          conferma: string;
+          note: string;
+          ticket: string;
+          contatto: string;
+        }[];
+      };
+      create_ticket: {
+        Args: {
+          appointment_id_input: number;
+        };
+        Returns: string;
+      };
+      create_ticket_no_entry: {
+        Args: {
+          appointment_id_input: number;
+          seat_id_input: number;
+        };
+        Returns: string;
+      };
+      delete_all_seats: {
+        Args: Record<PropertyKey, never>;
+        Returns: string;
+      };
+      delete_seat: {
+        Args: {
+          record_input: number;
+        };
+        Returns: string;
+      };
+      elenco_invitati: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          cognome: string;
+          nome: string;
+          carica: string;
+          azienda: string;
+          codice_esterno: string;
+          cind: string;
+          source: string;
+          data_creazione_contatto: string;
+          data_creazione_appointment: string;
+          nome_lista: string;
+          id_appointment_list: number;
+        }[];
+      };
+      get_all_cat: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          nome: string;
+          code: string;
+          lettera: string;
+          colore: string;
+          tipo: string;
+        }[];
+      };
+      get_all_registered: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          app_id: number;
+          cognome: string;
+          nome: string;
+          azienda: string;
+          categoria: string;
+          dataora: string;
+        }[];
+      };
+      get_all_seats: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          fila: string;
+          posto: string;
+          settore: string;
+          descrizione: string;
+          cod: number;
+          cognome: string;
+          nome: string;
+          carica: string;
+          id: number;
+          flag: string;
+        }[];
+      };
       get_appointment_details: {
         Args: Record<PropertyKey, never>;
         Returns: {
@@ -1622,6 +4515,17 @@ export type Database = {
         };
         Returns: string;
       };
+      get_seat_list: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          fila: string;
+          posto: string;
+          settore: string;
+          descrizione: string;
+          cognome: string;
+          nome: string;
+        }[];
+      };
       get_selected_invited_lists_detail: {
         Args: {
           selected_list_id: number;
@@ -1665,6 +4569,10 @@ export type Database = {
           appointments: Json;
         }[];
       };
+      how_many_in: {
+        Args: Record<PropertyKey, never>;
+        Returns: string;
+      };
       insert_appointments_list: {
         Args: {
           appointment_ids: number[];
@@ -1672,15 +4580,148 @@ export type Database = {
         };
         Returns: undefined;
       };
+      insert_reserved_seat: {
+        Args: {
+          fila_input: string;
+          posto_input: string;
+          settore_input: string;
+          description_input: string;
+        };
+        Returns: string;
+      };
+      insert_seat: {
+        Args: {
+          fila_input: string;
+          posto_input: string;
+          settore_input: string;
+          description_input: string;
+          record_input: number;
+        };
+        Returns: string;
+      };
       is_current_user_super_user: {
         Args: Record<PropertyKey, never>;
         Returns: boolean;
+      };
+      list_confirmed_no_seated: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          app_id: number;
+          cognome: string;
+          nome: string;
+          carica: string;
+          azienda: string;
+          colore: string;
+          categoria: string;
+          lettera: string;
+          cind: string;
+          fila: string;
+          posto: string;
+          settore: string;
+          flag: string;
+          conferma: string;
+          note: string;
+          ticket: string;
+        }[];
       };
       list_has_duplicates: {
         Args: {
           searched_list_id: number;
         };
         Returns: Database["public"]["CompositeTypes"]["duplicates_table"][];
+      };
+      listadeiconfermatinonseduti: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          app_id: number;
+          cognome: string;
+          nome: string;
+          carica: string;
+          azienda: string;
+          categoria: string;
+          lettera: string;
+          bibbia: string;
+          conferma: string;
+          note: string;
+          colore: string;
+        }[];
+      };
+      new_cog_search: {
+        Args: {
+          cog_input: string;
+        };
+        Returns: {
+          app_id: number;
+          cognome: string;
+          nome: string;
+          carica: string;
+          azienda: string;
+          colore: string;
+          categoria: string;
+          lettera: string;
+          cind: string;
+          fila: string;
+          posto: string;
+          settore: string;
+          flag: string;
+          conferma: string;
+          note: string;
+          ticket: string;
+        }[];
+      };
+      new_confirmed_not_seated_bycat:
+        | {
+            Args: Record<PropertyKey, never>;
+            Returns: {
+              cognome: string;
+              nome: string;
+              carica: string;
+              presso: string;
+              bibbia: string;
+              colore: string;
+              lettera: string;
+            }[];
+          }
+        | {
+            Args: {
+              letter_input: string;
+            };
+            Returns: {
+              app_id: number;
+              cognome: string;
+              nome: string;
+              carica: string;
+              azienda: string;
+              colore: string;
+              categoria: string;
+              lettera: string;
+              cind: string;
+              fila: string;
+              posto: string;
+              settore: string;
+              flag: string;
+              conferma: string;
+              note: string;
+              ticket: string;
+            }[];
+          };
+      pippo: {
+        Args: {
+          description_input: string;
+          fila_input: string;
+          posto_input: string;
+          settore_input: string;
+          id_input: number;
+        };
+        Returns: string;
+      };
+      remove_all_seat_from_tickets: {
+        Args: Record<PropertyKey, never>;
+        Returns: string;
+      };
+      reset_checkin: {
+        Args: Record<PropertyKey, never>;
+        Returns: string;
       };
       rsvp_get_details: {
         Args: {
@@ -1692,6 +4733,14 @@ export type Database = {
           company_name: string;
           has_ticket: boolean;
           email: string;
+        }[];
+      };
+      search_already_seated: {
+        Args: {
+          contact_input: number;
+        };
+        Returns: {
+          seat: string;
         }[];
       };
       search_cog: {
@@ -1707,6 +4756,52 @@ export type Database = {
           colore: string;
           categoria: string;
           cind: string;
+        }[];
+      };
+      search_cog_for_checkin: {
+        Args: {
+          cog_input: string;
+        };
+        Returns: {
+          app_id: number;
+          cognome: string;
+          nome: string;
+          carica: string;
+          azienda: string;
+          colore: string;
+          categoria: string;
+          lettera: string;
+          cind: string;
+          fila: string;
+          posto: string;
+          settore: string;
+          flag: string;
+          conferma: string;
+          note: string;
+          ticket: string;
+        }[];
+      };
+      search_cog_for_seat: {
+        Args: {
+          cog_input: string;
+        };
+        Returns: {
+          app_id: number;
+          cognome: string;
+          nome: string;
+          carica: string;
+          azienda: string;
+          colore: string;
+          categoria: string;
+          lettera: string;
+          cind: string;
+          fila: string;
+          posto: string;
+          settore: string;
+          flag: string;
+          conferma: string;
+          note: string;
+          ticket: string;
         }[];
       };
       search_companies: {
@@ -1735,6 +4830,36 @@ export type Database = {
         };
         Returns: Database["public"]["CompositeTypes"]["search_contacts_results"][];
       };
+      search_ticket: {
+        Args: {
+          scan_input: string;
+        };
+        Returns: {
+          app_id: number;
+          cognome: string;
+          nome: string;
+          carica: string;
+          azienda: string;
+          colore: string;
+          categoria: string;
+          lettera: string;
+          cind: string;
+          fila: string;
+          posto: string;
+          settore: string;
+          flag: string;
+          conferma: string;
+          note: string;
+          ticket: string;
+        }[];
+      };
+      seat_id_to_ticket: {
+        Args: {
+          id_input: string;
+          seat_id_input: number;
+        };
+        Returns: string;
+      };
       select_lists_event: {
         Args: {
           current_event_id: number;
@@ -1754,7 +4879,39 @@ export type Database = {
         };
         Returns: undefined;
       };
+      uncheck_one: {
+        Args: {
+          id_input: number;
+        };
+        Returns: string;
+      };
+      update_cat: {
+        Args: {
+          appointment_id_input: number;
+          cat_id_input: number;
+        };
+        Returns: string;
+      };
+      update_notes: {
+        Args: {
+          appointment_id_input: number;
+          note_input: string;
+        };
+        Returns: string;
+      };
+      update_ticket_without_seat_id: {
+        Args: {
+          id_input: number;
+        };
+        Returns: string;
+      };
       upsert_contact_test: {
+        Args: {
+          input: Json;
+        };
+        Returns: Json;
+      };
+      upsert_contact_test_2: {
         Args: {
           input: Json;
         };
@@ -1766,30 +4923,32 @@ export type Database = {
     };
     CompositeTypes: {
       duplicates_table: {
-        contact_id: number;
-        first_name: string;
-        last_name: string;
-        appointment_id: number;
+        contact_id: number | null;
+        first_name: string | null;
+        last_name: string | null;
+        appointment_id: number | null;
       };
       search_contacts_results: {
-        contact_id: number;
-        contact_first_name: string;
-        contact_last_name: string;
-        contact_date_of_birth: string;
-        workspace_id: number;
-        contact_status_id: number;
-        contact_status_name: string;
-        personal_title_id: number;
-        personal_title_name: string;
-        appointment_details: Json;
+        contact_id: number | null;
+        contact_first_name: string | null;
+        contact_last_name: string | null;
+        contact_date_of_birth: string | null;
+        workspace_id: number | null;
+        contact_status_id: number | null;
+        contact_status_name: string | null;
+        personal_title_id: number | null;
+        personal_title_name: string | null;
+        appointment_details: Json | null;
       };
     };
   };
 };
 
+type PublicSchema = Database[Extract<keyof Database, "public">];
+
 export type Tables<
   PublicTableNameOrOptions extends
-    | keyof (Database["public"]["Tables"] & Database["public"]["Views"])
+    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
@@ -1802,10 +4961,10 @@ export type Tables<
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (Database["public"]["Tables"] &
-      Database["public"]["Views"])
-  ? (Database["public"]["Tables"] &
-      Database["public"]["Views"])[PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
+      PublicSchema["Views"])
+  ? (PublicSchema["Tables"] &
+      PublicSchema["Views"])[PublicTableNameOrOptions] extends {
       Row: infer R;
     }
     ? R
@@ -1814,7 +4973,7 @@ export type Tables<
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
-    | keyof Database["public"]["Tables"]
+    | keyof PublicSchema["Tables"]
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
@@ -1825,8 +4984,8 @@ export type TablesInsert<
     }
     ? I
     : never
-  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
-  ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+  ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
       Insert: infer I;
     }
     ? I
@@ -1835,7 +4994,7 @@ export type TablesInsert<
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
-    | keyof Database["public"]["Tables"]
+    | keyof PublicSchema["Tables"]
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
@@ -1846,8 +5005,8 @@ export type TablesUpdate<
     }
     ? U
     : never
-  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
-  ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+  ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
       Update: infer U;
     }
     ? U
@@ -1856,13 +5015,13 @@ export type TablesUpdate<
 
 export type Enums<
   PublicEnumNameOrOptions extends
-    | keyof Database["public"]["Enums"]
+    | keyof PublicSchema["Enums"]
     | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
     : never = never
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : PublicEnumNameOrOptions extends keyof Database["public"]["Enums"]
-  ? Database["public"]["Enums"][PublicEnumNameOrOptions]
+  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
+  ? PublicSchema["Enums"][PublicEnumNameOrOptions]
   : never;

@@ -37,7 +37,7 @@ Deno.serve(async (req) => {
       contact: appointment.contact,
     };
     const ticketBuffer = await generate_ticket(ticketData);
-    
+
     if (ticketBuffer) {
       const base64Ticket = encodeBase64(ticketBuffer);
       if (ticketData.type === "base64") {
@@ -48,11 +48,12 @@ Deno.serve(async (req) => {
       }
 
       if (ticketData.type === "download") {
+        const filename = `Unindustria Assembly 2024 - Coupon ${appointment.contact.first_name} ${appointment.contact.last_name}.pdf`;
         return new Response(ticketBuffer, {
           headers: {
             ...corsHeaders,
             "Content-Type": "application/pdf",
-            "Content-Disposition": `attachment; filename="${ticketData.ticket_id}.pdf"`,
+            "Content-Disposition": `attachment; filename="${filename}"`,
           },
           status: 200,
         });

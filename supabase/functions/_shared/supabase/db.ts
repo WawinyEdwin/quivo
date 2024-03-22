@@ -1,15 +1,126 @@
 import {
   Appointment,
   AppointmentEmail,
+  Company,
   Contact,
+  Event,
   IAppointment,
   IAppointmentContact,
   IEventAppointmentMeta,
   IEventMeta,
   ITicket,
+  ITicketTimeslot,
   Ticket,
 } from "../types.ts";
 import { supabaseAdmin } from "./index.ts";
+
+
+export async function delete_ticket_timeslots(ticket_id: string) {
+  const { error } = await supabaseAdmin
+    .from("ticket_timeslot")
+    .delete()
+    .eq("ticket_id", ticket_id);
+  if (error) {
+    console.log(error);
+  }
+}
+
+export async function create_ticket_timeslot(ticket_timeslot: {
+  ticket_id: string;
+  event_timeslot_id: number;
+}): Promise<ITicketTimeslot> {
+  const { data, error } = await supabaseAdmin
+    .from("ticket_timeslot")
+    .insert([
+      {
+        ...ticket_timeslot,
+      },
+    ])
+    .select("id, event_timeslot:event_timeslot_id(*)");
+  if (error) {
+    console.log(error);
+  }
+  return data?.[0] as unknown as ITicketTimeslot;
+}
+
+export async function create_appointment_email(appointment_email: {
+  workspace_id: string;
+  appointment_id: number;
+  email: string;
+}): Promise<AppointmentEmail> {
+  const { data, error } = await supabaseAdmin
+    .from("appointment_emails")
+    .insert([
+      {
+        ...appointment_email,
+      },
+    ])
+    .select("*");
+  if (error) {
+    console.log(error);
+  }
+  return data?.[0];
+}
+
+export async function create_appointment(appointment: {
+  workspace_id: string;
+  contact_id: number;
+  company_id: number;
+  job_title: string;
+  source: string;
+}): Promise<Appointment> {
+  const { data, error } = await supabaseAdmin
+    .from("appointments")
+    .insert([
+      {
+        ...appointment,
+      },
+    ])
+    .select("*");
+  if (error) {
+    console.log(error);
+  }
+  return data?.[0];
+}
+
+export async function create_company(company: {
+  workspace_id: string;
+  name: string;
+}): Promise<Company> {
+  const { data, error } = await supabaseAdmin
+    .from("companies")
+    .insert([
+      {
+        ...company,
+      },
+    ])
+    .select("*");
+  if (error) {
+    console.log(error);
+  }
+  return data?.[0];
+}
+
+export async function create_contact(contact: {
+  workspace_id: string;
+  first_name: string;
+  last_name: string;
+  source: string
+}): Promise<Contact> {
+  const { data, error } = await supabaseAdmin
+    .from("contacts")
+    .insert([
+      {
+        ...contact,
+      },
+    ])
+    .select("*");
+  if (error) {
+    console.log(error);
+  }
+  console.log("Contact Created:", data);
+  return data?.[0];
+}
 
 export async function update_contacts(
   contact: Partial<Contact>,
@@ -29,7 +140,7 @@ export async function update_contacts(
 export async function create_ticket(ticket: {
   event_id: number;
   appointment_id: number;
-}): Promise<Ticket> {
+}) {
   const { data, error } = await supabaseAdmin
     .from("ticket")
     .insert([
@@ -38,11 +149,11 @@ export async function create_ticket(ticket: {
         status: "active",
       },
     ])
-    .select("*");
+    .select("id, event:event_id(*)");
   if (error) {
     console.log(error);
   }
-  return data?.[0];
+  return data?.[0] as unknown as { id: string; event: Event };
 }
 
 export async function get_appointment_by_uuid(

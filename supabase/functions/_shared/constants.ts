@@ -20,6 +20,10 @@ export const BadRequestResponse = {
   status: 400,
 };
 
+export const bigliettoConfig = {
+  email: "biglietti@filmimpresa.it",
+};
+
 export const mailProvider = "mailgun";
 
 export const quivoAddress = "invites@mail.quivo.it";

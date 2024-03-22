@@ -55,7 +55,7 @@ export class EmailService {
       console.log('email sent to:', email.to)
       return await response.json();
     } catch (error) {
-      console.error(error);
+      console.error("Error", error);
       throw new Response("Error, sending communication!", {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 500,

@@ -47,6 +47,11 @@ export interface IRsvp {
   event_id: number;
 }
 
+export type EventTimeslot =
+  Database["public"]["Tables"]["event_timeslot"]["Row"];
+
+export type Company = Database["public"]["Tables"]["companies"]["Row"];
+
 export type Event = Database["public"]["Tables"]["event"]["Row"];
 
 export type RsvpReponse = "accepted" | "refused" | "resent";
@@ -62,6 +67,11 @@ export type AppointmentEmail =
   Database["public"]["Tables"]["appointment_emails"]["Row"];
 
 export type Contact = Database["public"]["Tables"]["contacts"]["Row"];
+
+export interface ITicketTimeslot {
+  id: number;
+  event_timeslot: EventTimeslot;
+}
 
 export interface IEventAppointmentMeta {
   id: number;

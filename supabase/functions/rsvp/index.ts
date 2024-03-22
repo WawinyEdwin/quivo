@@ -119,7 +119,7 @@ const handle_rsvp = async (req: Request) => {
         html: unindustriaConfig.template,
         attachments: [
           {
-            name: `AssembleaUnindustria2024-${ticketId}.pdf`,
+            name: `Unindustria Assembly 2024 - Coupon - ${ticketId}.pdf`,
             file: generatedTicket,
           },
         ],

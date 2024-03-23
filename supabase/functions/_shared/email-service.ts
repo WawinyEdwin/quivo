@@ -6,7 +6,6 @@ const DOMAIN = Deno.env.get("MAILGUN_DOMAIN") as string;
 const API_URL = Deno.env.get("MAILGUN_API_URL") as string;
 const API_KEY = Deno.env.get("MAILGUN_API_KEY") as string;
 
-
 export class EmailService {
   // deno-lint-ignore no-explicit-any
   private static providers: Record<string, (email: IEmail) => Promise<any>> = {
@@ -45,14 +44,13 @@ export class EmailService {
         )
       );
     }
-
     try {
       const response = await fetch(MESSAGES_URL, {
         method: "POST",
         headers: mailgun_headers,
         body: formData,
       });
-      console.log('email sent to:', email.to)
+      console.log("email sent to:", email.to);
       return await response.json();
     } catch (error) {
       console.error("Error", error);

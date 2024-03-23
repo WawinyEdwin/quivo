@@ -47,6 +47,27 @@ export interface IRsvp {
   event_id: number;
 }
 
+export interface IFilmpresaRsvp {
+  appointment_uuid?: string;
+  event_id: number;
+  source: string;
+  contact: {
+    workspace_id: string;
+    first_name: string;
+    last_name: string;
+  };
+  company: {
+    workspace_id: string;
+    name: string;
+  };
+  appointment: {
+    workspace_id: string;
+    job_title: string;
+    email: string;
+  };
+  event_timeslot: number[];
+}
+
 export type EventTimeslot =
   Database["public"]["Tables"]["event_timeslot"]["Row"];
 

@@ -10,10 +10,8 @@ import {
   IEventMeta,
   ITicket,
   ITicketTimeslot,
-  Ticket,
 } from "../types.ts";
 import { supabaseAdmin } from "./index.ts";
-
 
 export async function delete_ticket_timeslots(ticket_id: string) {
   const { error } = await supabaseAdmin
@@ -105,7 +103,7 @@ export async function create_contact(contact: {
   workspace_id: string;
   first_name: string;
   last_name: string;
-  source: string
+  source: string;
 }): Promise<Contact> {
   const { data, error } = await supabaseAdmin
     .from("contacts")
@@ -118,7 +116,6 @@ export async function create_contact(contact: {
   if (error) {
     console.log(error);
   }
-  console.log("Contact Created:", data);
   return data?.[0];
 }
 
@@ -222,17 +219,15 @@ export async function get_appointment_email_by_appointment_email_uuid(
   return data?.[0] as unknown as AppointmentEmail;
 }
 
-export async function get_ticket_by_appointment_id(
-  appointment_id: number
-): Promise<Ticket> {
+export async function get_ticket_by_appointment_id(appointment_id: number) {
   const { data, error } = await supabaseAdmin
     .from("ticket")
-    .select("*")
+    .select("id, event:event_id(*)")
     .eq("appointment_id", appointment_id);
   if (error) {
     console.log(error);
   }
-  return data?.[0];
+  return data?.[0] as unknown as { id: string; event: Event };
 }
 
 export async function find_appointment_by_appointment_email_uuid(

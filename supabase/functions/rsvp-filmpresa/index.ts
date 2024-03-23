@@ -17,148 +17,12 @@ import {
   create_ticket_timeslot,
   delete_ticket_timeslots,
   get_appointment_by_uuid,
+  get_appointment_emails_by_appointment_id,
+  get_contact_by_id,
   get_ticket_by_appointment_id,
 } from "../_shared/supabase/db.ts";
 import { generate_filmpresa_ticket } from "../_shared/ticket.ts";
-import { EventTimeslot } from "../_shared/types.ts";
-
-interface IRsvpRequest {
-  appointment_uuid?: string
-  event_id: number;
-  source: string;
-  contact: {
-    workspace_id: string;
-    first_name: string;
-    last_name: string;
-  };
-  company: {
-    workspace_id: string;
-    name: string;
-  };
-  appointment: {
-    workspace_id: string;
-    job_title: string;
-    email: string;
-  };
-  event_timeslot: number[];
-}
-
-const handle_rsvp = async (req: Request) => {
-  try {
-    const rsvp: IRsvpRequest = await req.json();
-    if(rsvp.appointment_uuid) {
-      //  check if a ticket exists
-      const appointment = await get_appointment_by_uuid(rsvp.appointment_uuid);
-      const oldTicket = await get_ticket_by_appointment_id(appointment.id);
-      if(oldTicket) {
-        // delete all ticket_timeslots
-        await delete_ticket_timeslots(oldTicket.id);
-      }
-    } 
-    //   Create a new contact.
-    const contact = await create_contact({
-      workspace_id: rsvp.contact.workspace_id,
-      first_name: rsvp.contact.first_name,
-      last_name: rsvp.contact.last_name,
-      source: rsvp.source,
-    });
-    console.log("Contact Created:", contact);
-    if (!contact) throw new Error("Contact not created");
-    // Create a new company.
-    const company = await create_company({
-      workspace_id: rsvp.company.workspace_id,
-      name: rsvp.company.name,
-    });
-    console.log("Company Created:", company);
-    // Create a new appointment.
-    const appointment = await create_appointment({
-      workspace_id: rsvp.appointment.workspace_id,
-      contact_id: contact.id,
-      company_id: company.id,
-      job_title: rsvp.appointment.job_title,
-      source: rsvp.source,
-    });
-    console.log("Appointment Created:", appointment);
-    // create an appointment email
-    const appointment_email = await create_appointment_email({
-      workspace_id: rsvp.appointment.workspace_id,
-      appointment_id: appointment.id,
-      email: rsvp.appointment.email,
-    });
-    console.log("Appointment Email Created:", appointment_email);
-    // Create a new ticket (ticket name = "Biglietto Film Impresa - First Name Last Name").
-    const ticket = await create_ticket({
-      appointment_id: appointment.id,
-      event_id: rsvp.event_id,
-    });
-    console.log("Ticket Created:", ticket);
-    // Generate Ticket PDF
-    const pdfTicket = await generate_filmpresa_ticket({
-      type: "base64",
-      ticket_id: ticket.id,
-      contact: contact,
-      event: ticket.event,
-    });
-    console.log("Ticket PDF Generated");
-    // Create ticket_timeslot row for each id present in the event_timeslot array.
-    const eventTimeslots: EventTimeslot[] = [];
-    await Promise.all(
-      rsvp.event_timeslot.map(async (event_timeslot_id) => {
-        const ticketTimeslot = await create_ticket_timeslot({
-          event_timeslot_id,
-          ticket_id: ticket.id,
-        });
-        eventTimeslots.push(ticketTimeslot.event_timeslot);
-      })
-    );
-    console.log("Ticket Timeslots Created:", eventTimeslots);
-    // Customize the html
-    let html: string = "";
-    eventTimeslots.forEach((event_timeslot) => {
-      html += ` <tr><td align="left" style="padding:0;Margin:0">
-    <p
-      align="center"
-      style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px"
-    >
-      ${event_timeslot.title_email}
-      ${event_timeslot.description_HTML}
-    </p>
-  </td></tr>`;
-    });
-    const bigliettoHTML = customize_filmpresa_html(html);
-    // Send an email to all the emails listed for this appointment via Mailgun, using the "confirmationemailandpdfticket" template.
-    // In the "Custom HTML" block of the template, include the details of each event_timeslot:
-    // "event_timeslot.title_email"
-    // "event_timeslot.description_HTML"
-    EmailService.sendEmail(mailProvider, {
-      from: `Premio Film Impresa ${bigliettoConfig.email}`,
-      subject: `Ecco il tuo biglietto per Premio Film Impresa 2024`,
-      to: [appointment_email.email as string],
-      html: bigliettoHTML,
-      attachments: [
-        {
-          name: `Premio Film Impresa - ${rsvp.contact.first_name} ${rsvp.contact.last_name}.pdf`,
-          file: pdfTicket,
-        },
-      ],
-    });
-    // Create a record in event_appointment_meta with:
-    // event_id=1,
-    // appointment_id=(taken from the ticket we've just created),
-    // appointment_email=(taken from the ticket we've just created),
-    // status=accepted.
-    await create_appointment_meta({
-      event_id: rsvp.event_id,
-      appointment_id: appointment.id,
-      appointment_email: appointment_email.id,
-      action: "accepted",
-      status: "accepted",
-    });
-    console.log("Appointment Meta Created");
-  } catch (error) {
-    console.log("Error on Ticket Generation:", error);
-  }
-};
+import { EventTimeslot, IFilmpresaRsvp } from "../_shared/types.ts";
 
 serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
@@ -186,3 +50,142 @@ serve(async (req: Request) => {
     status: 500,
   });
 });
+
+const handle_rsvp = async (req: Request) => {
+  try {
+    const rsvp: IFilmpresaRsvp = await req.json();
+    if (rsvp.appointment_uuid) {
+      const appointment = await get_appointment_by_uuid(rsvp.appointment_uuid);
+      const oldTicket = await get_ticket_by_appointment_id(appointment.id);
+      if (oldTicket) {
+        await delete_ticket_timeslots(oldTicket.id);
+      }
+      const eventTimeslots: EventTimeslot[] = [];
+      await Promise.all(
+        rsvp.event_timeslot.map(async (event_timeslot_id) => {
+          const ticketTimeslot = await create_ticket_timeslot({
+            event_timeslot_id,
+            ticket_id: oldTicket.id,
+          });
+          eventTimeslots.push(ticketTimeslot.event_timeslot);
+        })
+      );
+      let html: string = "";
+      eventTimeslots.forEach((event_timeslot) => {
+        html += ` <tr><td align="left" style="padding:0;Margin:0">
+                  <p
+                    align="center"
+                    style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px"
+                  >
+                    ${event_timeslot.title_email}
+                    ${event_timeslot.description_HTML}
+                  </p>
+                </td></tr>`;
+      });
+      const bigliettoHTML = customize_filmpresa_html(html);
+      const emails = await get_appointment_emails_by_appointment_id(
+        appointment.id
+      );
+      const recipients = emails.map((appointment) => appointment.email);
+      const contact = await get_contact_by_id(appointment.contact_id as number);
+      const pdfTicket = await generate_filmpresa_ticket({
+        type: "base64",
+        ticket_id: oldTicket.id,
+        contact: contact,
+        event: oldTicket.event,
+      });
+      await EmailService.sendEmail(mailProvider, {
+        from: `Premio Film Impresa ${bigliettoConfig.email}`,
+        subject: `Ecco il tuo biglietto per Premio Film Impresa 2024`,
+        to: [recipients.join(",")],
+        html: bigliettoHTML,
+        attachments: [
+          {
+            name: `Premio Film Impresa - ${rsvp.contact.first_name} ${rsvp.contact.last_name}.pdf`,
+            file: pdfTicket,
+          },
+        ],
+      });
+      return;
+    } else {
+      const contact = await create_contact({
+        workspace_id: rsvp.contact.workspace_id,
+        first_name: rsvp.contact.first_name,
+        last_name: rsvp.contact.last_name,
+        source: rsvp.source,
+      });
+      const company = await create_company({
+        workspace_id: rsvp.company.workspace_id,
+        name: rsvp.company.name,
+      });
+      const appointment = await create_appointment({
+        workspace_id: rsvp.appointment.workspace_id,
+        contact_id: contact.id,
+        company_id: company.id,
+        job_title: rsvp.appointment.job_title,
+        source: rsvp.source,
+      });
+      const appointment_email = await create_appointment_email({
+        workspace_id: rsvp.appointment.workspace_id,
+        appointment_id: appointment.id,
+        email: rsvp.appointment.email,
+      });
+      const ticket = await create_ticket({
+        appointment_id: appointment.id,
+        event_id: rsvp.event_id,
+      });
+      const eventTimeslots: EventTimeslot[] = [];
+      await Promise.all(
+        rsvp.event_timeslot.map(async (event_timeslot_id) => {
+          const ticketTimeslot = await create_ticket_timeslot({
+            event_timeslot_id,
+            ticket_id: ticket.id,
+          });
+          eventTimeslots.push(ticketTimeslot.event_timeslot);
+        })
+      );
+      let html: string = "";
+      eventTimeslots.forEach((event_timeslot) => {
+        html += ` <tr><td align="left" style="padding:0;Margin:0">
+                <p
+                  align="center"
+                  style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px"
+                >
+                  ${event_timeslot.title_email}
+                  ${event_timeslot.description_HTML}
+                </p>
+              </td></tr>`;
+      });
+      const bigliettoHTML = customize_filmpresa_html(html);
+      const pdfTicket = await generate_filmpresa_ticket({
+        type: "base64",
+        ticket_id: ticket.id,
+        contact: contact,
+        event: ticket.event,
+      });
+      await EmailService.sendEmail(mailProvider, {
+        from: `Premio Film Impresa ${bigliettoConfig.email}`,
+        subject: `Ecco il tuo biglietto per Premio Film Impresa 2024`,
+        to: [appointment_email.email as string],
+        html: bigliettoHTML,
+        attachments: [
+          {
+            name: `Premio Film Impresa - ${rsvp.contact.first_name} ${rsvp.contact.last_name}.pdf`,
+            file: pdfTicket,
+          },
+        ],
+      });
+      await create_appointment_meta({
+        event_id: rsvp.event_id,
+        appointment_id: appointment.id,
+        appointment_email: appointment_email.id,
+        action: "accepted",
+        status: "accepted",
+      });
+      console.log("here");
+      return;
+    }
+  } catch (error) {
+    console.log("Error on Ticket Generation:", error);
+  }
+};

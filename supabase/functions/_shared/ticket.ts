@@ -176,7 +176,7 @@ export const generate_filmpresa_ticket = async (
   page.PDFFont = "Inter-Regular";
 
   const unindustriaLogoBytes = await fetch(
-    "https://frdznxvduztcsimohtsa.supabase.co/storage/v1/object/public/assets/FilmImpresa_header.png"
+    "https://frdznxvduztcsimohtsa.supabase.co/storage/v1/object/public/assets/FilmImpresa_email_header-min.png"
   ).then((res) => res.arrayBuffer());
   const unindustriaLogoImage = await doc.embedPng(unindustriaLogoBytes);
 

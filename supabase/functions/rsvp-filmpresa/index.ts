@@ -70,17 +70,33 @@ const handle_rsvp = async (req: Request) => {
           eventTimeslots.push(ticketTimeslot.event_timeslot);
         })
       );
+      eventTimeslots.sort((a, b) => {
+        const time_startA = a.date as string;
+        const time_startB = b.date as string;
+        const dateA = new Date(time_startA).getTime();
+        const dateB = new Date(time_startB).getTime();
+        if (dateA > dateB) return 1;
+        if (dateA < dateB) return -1;
+        if (time_startA > time_startB) return 1;
+        if (time_startA < time_startB) return -1;
+        return 0;
+      });
       let html: string = "";
       eventTimeslots.forEach((event_timeslot) => {
         html += ` <tr><td align="left" style="padding:0;Margin:0">
-                  <p
-                    align="center"
-                    style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px"
-                  >
-                    ${event_timeslot.title_email}
-                    ${event_timeslot.description_HTML}
-                  </p>
-                </td></tr>`;
+                <p
+                  align="left"
+                  style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#2456C8;font-size:14px; font-weight: bold;"
+                >
+                  ${event_timeslot.title_email}
+                </p>
+                <p
+                  align="center"
+                  style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px"
+                >
+                  ${event_timeslot.description_HTML}
+                </p>
+              </td></tr> <hr /> <br />`;
       });
       const bigliettoHTML = customize_filmpresa_html(html);
       const emails = await get_appointment_emails_by_appointment_id(
@@ -144,17 +160,33 @@ const handle_rsvp = async (req: Request) => {
           eventTimeslots.push(ticketTimeslot.event_timeslot);
         })
       );
+      eventTimeslots.sort((a, b) => {
+        const time_startA = a.date as string;
+        const time_startB = b.date as string;
+        const dateA = new Date(time_startA).getTime();
+        const dateB = new Date(time_startB).getTime();
+        if (dateA > dateB) return 1;
+        if (dateA < dateB) return -1;
+        if (time_startA > time_startB) return 1;
+        if (time_startA < time_startB) return -1;
+        return 0;
+      });
       let html: string = "";
       eventTimeslots.forEach((event_timeslot) => {
         html += ` <tr><td align="left" style="padding:0;Margin:0">
                 <p
+                  align="left"
+                  style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#2456C8;font-size:14px; font-weight: bold;"
+                >
+                  ${event_timeslot.title_email}
+                </p>
+                <p
                   align="center"
                   style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px"
                 >
-                  ${event_timeslot.title_email}
                   ${event_timeslot.description_HTML}
                 </p>
-              </td></tr>`;
+              </td></tr> <hr /> <br />`;
       });
       const bigliettoHTML = customize_filmpresa_html(html);
       const pdfTicket = await generate_filmpresa_ticket({

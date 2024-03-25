@@ -176,15 +176,18 @@ export const generate_filmpresa_ticket = async (
   page.PDFFont = "Inter-Regular";
 
   const unindustriaLogoBytes = await fetch(
-    "https://frdznxvduztcsimohtsa.supabase.co/storage/v1/object/public/assets/FilmImpresa_email_header-min.png"
+    "https://frdznxvduztcsimohtsa.supabase.co/storage/v1/object/public/assets/FilmImpresa_header.png"
   ).then((res) => res.arrayBuffer());
   const unindustriaLogoImage = await doc.embedPng(unindustriaLogoBytes);
+  const aspectRatio = unindustriaLogoImage.width / unindustriaLogoImage.height;
+  const newWidth = page.getWidth();
+  const newHeight = newWidth / aspectRatio;
 
   page.drawImage(unindustriaLogoImage, {
     x: 0,
-    y: page.getHeight() / 2,
+    y: page.getHeight() - newHeight,
     width: page.getWidth(),
-    height: page.getHeight() / 2,
+    height: newHeight,
   });
 
   const qrCode = await QRCode.toBuffer(ticketData.ticket_id, {
@@ -196,11 +199,11 @@ export const generate_filmpresa_ticket = async (
   const qrImage = await doc.embedPng(qrCode);
   const qrDims = qrImage.scale(1.4);
   const qrXPos = (page.getWidth() - qrDims.width) / 2;
-  const qrYPos = (page.getHeight() - qrDims.height) / 2;
+  const qrYPos = (page.getHeight() - newHeight) / 2;
 
   page.drawImage(qrImage, {
     x: qrXPos,
-    y: page.getHeight() / 2 - qrDims.height - 10,
+    y: qrYPos,
     width: qrDims.width,
     height: qrDims.height,
     color: rgb(0 / 255, 62 / 255, 126 / 255),
@@ -219,7 +222,7 @@ export const generate_filmpresa_ticket = async (
 
   page.drawText(firstName, {
     x: firstNameXPos,
-    y: qrYPos - 130,
+    y: qrYPos - 30,
     size: 24,
     font: font,
     color: rgb(0 / 255, 62 / 255, 126 / 255),
@@ -227,7 +230,7 @@ export const generate_filmpresa_ticket = async (
 
   page.drawText(lastName, {
     x: lastNameXPos,
-    y: qrYPos - 160,
+    y: qrYPos - 60,
     size: 24,
     font: font,
     color: rgb(0 / 255, 62 / 255, 126 / 255),
@@ -305,7 +308,7 @@ export const generate_filmpresa_ticket = async (
 
   const startDay = startDate.getDate();
   const endDay = endDate.getDate();
-  const month = startDate.toLocaleString("default", { month: "long" });
+  const month = startDate.toLocaleString("it-IT", { month: "long" });
   const year = startDate.getFullYear();
 
   let dateText = `${startDay} - ${endDay}`;
@@ -313,7 +316,7 @@ export const generate_filmpresa_ticket = async (
     dateText += "th";
   }
   dateText += ` ${month} ${year}`;
-  
+
   const _timeText = new Date(
     ticketData.event.date_start as string
   ).toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });

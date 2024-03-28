@@ -1,9 +1,10 @@
+import { jsonHeaders } from "../constants.ts";
+import { corsHeaders } from "../cors.ts";
 import {
   Appointment,
   AppointmentEmail,
   Company,
   Contact,
-  Event,
   IAppointment,
   IAppointmentContact,
   IEventAppointmentMeta,
@@ -19,7 +20,10 @@ export async function delete_ticket_timeslots(ticket_id: string) {
     .delete()
     .eq("ticket_id", ticket_id);
   if (error) {
-    console.log(error);
+    throw new Response(JSON.stringify({ message: error.message }), {
+      headers: { ...corsHeaders, ...jsonHeaders },
+      status: 500,
+    });
   }
 }
 
@@ -36,7 +40,10 @@ export async function create_ticket_timeslot(ticket_timeslot: {
     ])
     .select("id, event_timeslot:event_timeslot_id(*)");
   if (error) {
-    console.log(error);
+    throw new Response(JSON.stringify({ message: error.message }), {
+      headers: { ...corsHeaders, ...jsonHeaders },
+      status: 500,
+    });
   }
   return data?.[0] as unknown as ITicketTimeslot;
 }
@@ -55,7 +62,10 @@ export async function create_appointment_email(appointment_email: {
     ])
     .select("*");
   if (error) {
-    console.log(error);
+    throw new Response(JSON.stringify({ message: error.message }), {
+      headers: { ...corsHeaders, ...jsonHeaders },
+      status: 500,
+    });
   }
   return data?.[0];
 }
@@ -76,7 +86,10 @@ export async function create_appointment(appointment: {
     ])
     .select("*");
   if (error) {
-    console.log(error);
+    throw new Response(JSON.stringify({ message: error.message }), {
+      headers: { ...corsHeaders, ...jsonHeaders },
+      status: 500,
+    });
   }
   return data?.[0];
 }
@@ -94,7 +107,10 @@ export async function create_company(company: {
     ])
     .select("*");
   if (error) {
-    console.log(error);
+    throw new Response(JSON.stringify({ message: error.message }), {
+      headers: { ...corsHeaders, ...jsonHeaders },
+      status: 500,
+    });
   }
   return data?.[0];
 }
@@ -114,7 +130,10 @@ export async function create_contact(contact: {
     ])
     .select("*");
   if (error) {
-    console.log(error);
+    throw new Response(JSON.stringify({ message: error.message }), {
+      headers: { ...corsHeaders, ...jsonHeaders },
+      status: 500,
+    });
   }
   return data?.[0];
 }
@@ -129,7 +148,10 @@ export async function update_contacts(
     .eq("id", contact_id)
     .select("*");
   if (error) {
-    console.log(error);
+    throw new Response(JSON.stringify({ message: error.message }), {
+      headers: { ...corsHeaders, ...jsonHeaders },
+      status: 500,
+    });
   }
   return data?.[0];
 }
@@ -146,11 +168,14 @@ export async function create_ticket(ticket: {
         status: "active",
       },
     ])
-    .select("id, event:event_id(*)");
+    .select("id, event:event_id(*), status, entry, created_at, seat_id");
   if (error) {
-    console.log(error);
+    throw new Response(JSON.stringify({ message: error.message }), {
+      headers: { ...corsHeaders, ...jsonHeaders },
+      status: 500,
+    });
   }
-  return data?.[0] as unknown as { id: string; event: Event };
+  return data?.[0] as unknown as ITicket;
 }
 
 export async function get_appointment_by_uuid(
@@ -161,7 +186,10 @@ export async function get_appointment_by_uuid(
     .select("*")
     .eq("uuid", appointment_uuid);
   if (error) {
-    console.log(error);
+    throw new Response(JSON.stringify({ message: error.message }), {
+      headers: { ...corsHeaders, ...jsonHeaders },
+      status: 500,
+    });
   }
   return data?.[0];
 }
@@ -177,7 +205,10 @@ export async function update_appointment_by_uuid(
     .select("*")
     .single();
   if (error) {
-    console.log("Update Appointment", error);
+    throw new Response(JSON.stringify({ message: error.message }), {
+      headers: { ...corsHeaders, ...jsonHeaders },
+      status: 500,
+    });
   }
   return data;
 }
@@ -190,7 +221,10 @@ export async function create_appointment_meta(
     .insert({ ...eventMeta })
     .select(`id, status, event:event_appointment_meta_event_id_fkey(*)`);
   if (error) {
-    console.log("Create Appointment Meta", error);
+    throw new Response(JSON.stringify({ message: error.message }), {
+      headers: { ...corsHeaders, ...jsonHeaders },
+      status: 500,
+    });
   }
   return data?.[0] as unknown as IEventAppointmentMeta;
 }
@@ -214,7 +248,10 @@ export async function get_appointment_email_by_appointment_email_uuid(
     .select("*")
     .eq("uuid", appointment_email_uuid);
   if (error) {
-    console.log(error);
+    throw new Response(JSON.stringify({ message: error.message }), {
+      headers: { ...corsHeaders, ...jsonHeaders },
+      status: 500,
+    });
   }
   return data?.[0] as unknown as AppointmentEmail;
 }
@@ -222,12 +259,15 @@ export async function get_appointment_email_by_appointment_email_uuid(
 export async function get_ticket_by_appointment_id(appointment_id: number) {
   const { data, error } = await supabaseAdmin
     .from("ticket")
-    .select("id, event:event_id(*)")
+    .select("id, event:event_id(*), status, entry, created_at, seat_id")
     .eq("appointment_id", appointment_id);
   if (error) {
-    console.log(error);
+    throw new Response(JSON.stringify({ message: error.message }), {
+      headers: { ...corsHeaders, ...jsonHeaders },
+      status: 500,
+    });
   }
-  return data?.[0] as unknown as { id: string; event: Event };
+  return data?.[0] as unknown as ITicket;
 }
 
 export async function find_appointment_by_appointment_email_uuid(
@@ -240,7 +280,10 @@ export async function find_appointment_by_appointment_email_uuid(
     )
     .eq("uuid", appointmentEmailUuid);
   if (error) {
-    console.log(error);
+    throw new Response(JSON.stringify({ message: error.message }), {
+      headers: { ...corsHeaders, ...jsonHeaders },
+      status: 500,
+    });
   }
   return data?.[0] as unknown as IAppointmentContact;
 }
@@ -251,7 +294,10 @@ export async function get_appointment_by_id(appointment_id: number) {
     .select(`id, contact:appointments_contact_id_fkey(*)`)
     .eq("id", appointment_id);
   if (error) {
-    console.log(error);
+    throw new Response(JSON.stringify({ message: error.message }), {
+      headers: { ...corsHeaders, ...jsonHeaders },
+      status: 500,
+    });
   }
   return data?.[0] as unknown as IAppointment;
 }
@@ -262,7 +308,10 @@ export async function get_contact_by_id(contact_id: number): Promise<Contact> {
     .select("*")
     .eq("id", contact_id);
   if (error) {
-    console.log(error);
+    throw new Response(JSON.stringify({ message: error.message }), {
+      headers: { ...corsHeaders, ...jsonHeaders },
+      status: 500,
+    });
   }
   return data?.[0];
 }
@@ -276,7 +325,10 @@ export async function get_appointment_emails_by_appointment_id(
     .eq("appointment_id", appointment_id);
 
   if (error) {
-    console.log(error);
+    throw new Response(JSON.stringify({ message: error.message }), {
+      headers: { ...corsHeaders, ...jsonHeaders },
+      status: 500,
+    });
   }
   return data as unknown as AppointmentEmail[];
 }
@@ -290,7 +342,10 @@ export const get_ticket_by_id = async (ticket_id: string) => {
     .eq("id", ticket_id)
     .single();
   if (error) {
-    console.log(error);
+    throw new Response(JSON.stringify({ message: error.message }), {
+      headers: { ...corsHeaders, ...jsonHeaders },
+      status: 500,
+    });
   }
   return data as unknown as ITicket;
 };

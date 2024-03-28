@@ -22,6 +22,7 @@ export const BadRequestResponse = {
 
 export const bigliettoConfig = {
   email: "biglietti@filmimpresa.it",
+  ticketEmail: "tickets@filmimpresa.it"
 };
 
 export const mailProvider = "mailgun";

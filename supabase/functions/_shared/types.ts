@@ -49,6 +49,7 @@ export interface IRsvp {
 
 export interface IFilmpresaRsvp {
   appointment_uuid?: string;
+  receipient: FilmpresaReceipient;
   event_id: number;
   source: string;
   contact: {
@@ -67,6 +68,8 @@ export interface IFilmpresaRsvp {
   };
   event_timeslot: number[];
 }
+
+export type FilmpresaReceipient = "user" | "tickets";
 
 export type EventTimeslot =
   Database["public"]["Tables"]["event_timeslot"]["Row"];

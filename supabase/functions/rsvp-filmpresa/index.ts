@@ -21,7 +21,7 @@ import {
   get_contact_by_id,
   get_ticket_by_appointment_id,
 } from "../_shared/supabase/db.ts";
-import { generate_filmpresa_ticket } from "../_shared/ticket.ts";
+import { generate_filmpresa_ticket, toTitleCase } from "../_shared/ticket.ts";
 import {
   Contact,
   EventTimeslot,
@@ -233,7 +233,8 @@ interface IFimpresaTicketMail {
 
 const processTicketEmail = async (ticketMail: IFimpresaTicketMail) => {
   const { ticket, contact, emails, emailHtml, receipient } = ticketMail;
-  const ticketName = `${contact.first_name} - ${contact.last_name}`;
+  const firstName = toTitleCase(contact.first_name as string);
+  const ticketName = `${firstName} - ${contact.last_name}`;
   const receipients =
     receipient === "user" ? emails : [bigliettoConfig.ticketEmail];
   const mailSubject =

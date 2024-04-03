@@ -100,6 +100,15 @@ const handle_rsvp = async (req: Request) => {
         emailHtml: bigliettoHTML,
         receipient: rsvp.receipient,
       });
+      emails.forEach(async (email) => {
+        await create_appointment_meta({
+          event_id: rsvp.event_id,
+          appointment_id: appointment.id,
+          appointment_email: email.id,
+          action: "accepted",
+          status: "accepted",
+        });
+      });
       return;
     } else {
       const contact = await create_contact({

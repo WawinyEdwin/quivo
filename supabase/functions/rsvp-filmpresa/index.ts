@@ -61,25 +61,16 @@ const handle_rsvp = async (req: Request) => {
     if (rsvp.appointment_uuid) {
       const appointment = await get_appointment_by_uuid(rsvp.appointment_uuid);
       if (!appointment) {
-        return new Response(
-          JSON.stringify({ message: "Appointment not found" }),
-          {
-            headers: { ...corsHeaders, ...jsonHeaders },
-            status: 404,
-          }
-        );
+        return;
       }
-      const oldTicket = await get_ticket_by_appointment_id(appointment.id);
-      if (!oldTicket) {
-        return new Response(
-          JSON.stringify({ message: "Ticket not found for this appointment" }),
-          {
-            headers: { ...corsHeaders, ...jsonHeaders },
-            status: 404,
-          }
-        );
-      } else {
+      let oldTicket = await get_ticket_by_appointment_id(appointment.id);
+      if (oldTicket) {
         await delete_ticket_timeslots(oldTicket.id);
+      } else {
+        oldTicket = await create_ticket({
+          appointment_id: appointment.id,
+          event_id: rsvp.event_id,
+        });
       }
       const eventTimeslots = await createTicketTimeslots(
         rsvp.event_timeslot,

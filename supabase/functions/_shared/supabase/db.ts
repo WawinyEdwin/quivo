@@ -76,6 +76,7 @@ export async function create_appointment(appointment: {
   company_id: number;
   job_title: string;
   source: string;
+  appointment_category_id?: number;
 }): Promise<Appointment> {
   const { data, error } = await supabaseAdmin
     .from("appointments")

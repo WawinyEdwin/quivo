@@ -30,6 +30,8 @@ import {
   ITicket,
 } from "../_shared/types.ts";
 
+const DEFAULT_CATEGORY = 661;
+
 serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
@@ -127,6 +129,9 @@ const handle_rsvp = async (req: Request) => {
         company_id: company.id,
         job_title: rsvp.appointment.job_title,
         source: rsvp.source,
+        appointment_category_id: rsvp.appointment.category
+          ? rsvp.appointment.category
+          : DEFAULT_CATEGORY,
       });
       const appointment_email = await create_appointment_email({
         workspace_id: rsvp.appointment.workspace_id,

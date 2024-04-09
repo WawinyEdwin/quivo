@@ -65,6 +65,7 @@ export interface IFilmpresaRsvp {
     workspace_id: string;
     job_title: string;
     email: string;
+    category?: number;
   };
   event_timeslot: number[];
 }
